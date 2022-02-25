@@ -200,14 +200,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265206473}
-  m_LocalRotation: {x: -0.0047261715, y: -0.7551412, z: 0.65552264, w: -0.0054357946}
-  m_LocalPosition: {x: 3.3344684, y: 9.338068, z: 4.4495974}
+  m_LocalRotation: {x: 0.42672658, y: 0, z: 0, w: 0.90438074}
+  m_LocalPosition: {x: 3.19, y: 7.9, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50.52, y: 0, z: 0}
 --- !u!114 &1265206477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileMaterial: {fileID: 2100000, guid: aa4fcb9aef0457b4b9ccb40085d68d14, type: 2}
-  tileSize: 0.7
-  yOffset: 0.2
-  boardCenter: {x: -2.8, y: 0, z: -2.8}
+  tileSize: 1
+  yOffset: 0.02
+  boardCenter: {x: -3.5, y: 0, z: -3.5}
