@@ -455,7 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMaterial: {fileID: 2100000, guid: aa4fcb9aef0457b4b9ccb40085d68d14, type: 2}
   tileSize: 1
-  yOffset: 0
+  yOffset: 0.01
   boardCenter: {x: -3.5, y: 0, z: -3.5}
   deathSize: 0.55
   deathSpacing: 0.55
