@@ -29,9 +29,12 @@ public class Chessboard : MonoBehaviour
 	private Camera currentCamera;
 	private Vector2Int currentHover;
 	private Vector3 bounds;
+	private bool isWhiteTurn;
 
 	private void Awake()
 	{
+		isWhiteTurn = true;
+
 		GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
 		SpawnAllPieces();
 		PositionAllPieces();
@@ -73,7 +76,8 @@ public class Chessboard : MonoBehaviour
 			{
 				if (chessPieces[hitPos.x, hitPos.y] != null)
 				{
-					if (true)
+					// Turns Mechanic
+					if ((chessPieces[hitPos.x, hitPos.y].team == 0 && isWhiteTurn) || (chessPieces[hitPos.x, hitPos.y].team == 1 && !isWhiteTurn))
 					{
 						currentlyDragging = chessPieces[hitPos.x, hitPos.y];
 
@@ -261,6 +265,27 @@ public class Chessboard : MonoBehaviour
 		availableMoves.Clear();
 	}
 
+	// CheckMate
+	private void CheckMate(int team)
+	{
+		DisplayVictory(team);
+	}
+
+	private void DisplayVictory(int winningTeam)
+	{
+
+	}
+	
+	public void OnResetButton()
+	{
+		
+	}
+	
+	public void OnExitButton()
+	{
+		
+	}
+
 	// Operations
 	private bool ContainsValidMove(ref List<Vector2Int> moves, Vector2 pos)
 	{
@@ -281,7 +306,7 @@ public class Chessboard : MonoBehaviour
 		{
 			return false;
 		}
-		
+
 		Vector2Int previousPos = new Vector2Int(cp.currentX, cp.currentY);
 
 		// Is the tile occupied
@@ -297,6 +322,11 @@ public class Chessboard : MonoBehaviour
 			// If enemy team
 			if (ocp.team == 0)
 			{
+				if (ocp.type == ChessPieceType.King)
+				{
+					CheckMate(1);
+				}
+
 				deadWhites.Add(ocp);
 				ocp.SetScale(Vector3.one * deathSize);
 				ocp.SetPosition
@@ -309,6 +339,11 @@ public class Chessboard : MonoBehaviour
 			}
 			else
 			{
+				if (ocp.type == ChessPieceType.King)
+				{
+					CheckMate(0);
+				}
+
 				deadBlacks.Add(ocp);
 				ocp.SetScale(Vector3.one * deathSize);
 				ocp.SetPosition
@@ -325,6 +360,8 @@ public class Chessboard : MonoBehaviour
 		chessPieces[previousPos.x, previousPos.y] = null;
 
 		PositionSinglePiece(x, y);
+
+		isWhiteTurn = !isWhiteTurn;
 
 		return true;
 	}
