@@ -67,7 +67,7 @@ public class King : BasePiece
 				{
 					r.Add(new Vector2Int(currentX - 1, currentY + 1));
 				}
-				else if (board[currentX - 1, currentY - 1].team != team)
+				else if (board[currentX - 1, currentY + 1].team != team)
 				{
 					r.Add(new Vector2Int(currentX - 1, currentY + 1));
 				}
