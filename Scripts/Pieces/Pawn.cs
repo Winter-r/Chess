@@ -55,6 +55,12 @@ public class Pawn : BasePiece
 	{
 		int direction = (team == 0) ? 1 : -1;
 		
+		// Promotion
+		if ((team == 0 && currentY == 6) || (team == 1 && currentY == 1))
+		{
+			return SpecialMove.Promotion;
+		}
+		
 		// En Passant
 		if (moveList.Count > 0)
 		{
