@@ -57,6 +57,7 @@ public class GameUI : MonoSingleton<GameUI>
 		client.Init("127.0.0.1", 8007);
 		menuAnimator.SetTrigger("HostMenu");
 	}
+
 	public void OnOnlineConnectButton()
 	{
 		SetLocalGame?.Invoke(false);
@@ -95,5 +96,4 @@ public class GameUI : MonoSingleton<GameUI>
 	{
 		menuAnimator.SetTrigger("InGameMenu");
 	}
-
 }

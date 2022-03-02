@@ -956,7 +956,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775229, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3289,7 +3289,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775229, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3803,7 +3803,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7775229, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5239,7 +5239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b20f944220d8f443ab3cfb99a128445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMaterial: {fileID: 2100000, guid: aa4fcb9aef0457b4b9ccb40085d68d14, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 5776e1657e71c2749979d1f5533da976, type: 2}
   tileSize: 1
   yOffset: 0.01
   boardCenter: {x: -3.5, y: 0, z: -3.5}
@@ -5248,7 +5248,7 @@ MonoBehaviour:
   dragOffset: 1.25
   victoryScreen: {fileID: 1578876466}
   rematchIndicator: {fileID: 1463595333}
-  rematchButton: {fileID: 0}
+  rematchButton: {fileID: 575189830}
   prefabs:
   - {fileID: 4852894807656341012, guid: b91e6cf0440a73647aa86d11202f0325, type: 3}
   - {fileID: 4037930532721772457, guid: 7b63e2563ca3d1f4686670e1cb85b18c, type: 3}
