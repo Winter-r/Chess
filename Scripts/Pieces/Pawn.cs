@@ -62,7 +62,7 @@ public class Pawn : BasePiece
 		}
 		
 		// En Passant
-		if (moveList.Count > 0)
+		if (moveList.Count > 0 )
 		{
 			Vector2Int[] lastMove = moveList[moveList.Count - 1];
 			if (board[lastMove[1].x, lastMove[1].y].type == ChessPieceType.Pawn)
@@ -78,6 +78,7 @@ public class Pawn : BasePiece
 								availableMoves.Add(new Vector2Int(currentX - 1, currentY + direction));
 								return SpecialMove.EnPassant;
 							}
+							
 							if (lastMove[1].x == currentX + 1)
 							{
 								availableMoves.Add(new Vector2Int(currentX + 1, currentY + direction));
