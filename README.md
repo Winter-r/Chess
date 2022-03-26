@@ -18,3 +18,5 @@ Note: I completely understand the worry of using sharing your IP, you might be s
 ![Black Team](https://i.imgur.com/A2K2kZb.png)
 
 
+# Credits
+* Chess Set Model: "Low Poly Chess Set" by Andrew McClain Hanold on the [Unity Asset Store](https://assetstore.unity.com/packages/3d/props/free-low-poly-chess-set-116856#)
