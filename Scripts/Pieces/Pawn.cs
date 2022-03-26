@@ -10,7 +10,7 @@ public class Pawn : BasePiece
 		int direction = (team == 0) ? 1 : -1;
 
 		// One in front
-		if (board[currentX, currentY + direction] == null)
+		if (board[currentX, (currentY + direction)] == null)
 		{
 			r.Add(new Vector2Int(currentX, currentY + direction));
 		}
