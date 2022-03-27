@@ -2,8 +2,18 @@ using Unity.Networking.Transport;
 using UnityEngine;
 using System;
 
-public class Client : MonoSingleton<Client>
+public class Client : MonoBehaviour
 {
+	#region Singleton Implementation
+
+	public static Client Instance { set; get; }
+	private void Awake()
+	{
+		Instance = this;
+	}
+
+	#endregion
+
 	public NetworkDriver driver;
 	private NetworkConnection connection;
 
@@ -11,7 +21,8 @@ public class Client : MonoSingleton<Client>
 
 	public Action connectionDropped;
 
-	// Methods
+	#region Methods
+
 	public void Init(string ip, ushort port)
 	{
 		driver = NetworkDriver.Create();
@@ -19,7 +30,7 @@ public class Client : MonoSingleton<Client>
 
 		connection = driver.Connect(endpoint);
 
-		Debug.Log("Attempting to connect to server on " + endpoint.Address);
+		Debug.Log("Attempting to connect to Server on " + endpoint.Address);
 
 		isActive = true;
 
@@ -42,15 +53,17 @@ public class Client : MonoSingleton<Client>
 		ShutDown();
 	}
 
+	public void OnApplicationQuit()
+	{
+		ShutDown();
+	}
+
 	public void Update()
 	{
 		if (!isActive)
-		{
 			return;
-		}
 
 		driver.ScheduleUpdate().Complete();
-
 		CheckAlive();
 
 		UpdateMessagePump();
@@ -60,7 +73,7 @@ public class Client : MonoSingleton<Client>
 	{
 		if (!connection.IsCreated && isActive)
 		{
-			Debug.Log("Something went wrong, Lost connection the server");
+			Debug.Log("Something went wrong, lost connection to server");
 			connectionDropped?.Invoke();
 			ShutDown();
 		}
@@ -70,13 +83,11 @@ public class Client : MonoSingleton<Client>
 	{
 		DataStreamReader stream;
 		NetworkEvent.Type cmd;
-
 		while ((cmd = connection.PopEvent(driver, out stream)) != NetworkEvent.Type.Empty)
 		{
 			if (cmd == NetworkEvent.Type.Connect)
 			{
 				SendToServer(new NetWelcome());
-				Debug.Log("We're connected");
 			}
 			else if (cmd == NetworkEvent.Type.Data)
 			{
@@ -84,10 +95,10 @@ public class Client : MonoSingleton<Client>
 			}
 			else if (cmd == NetworkEvent.Type.Disconnect)
 			{
+				Debug.Log("Client got disconnected from server");
 				connection = default(NetworkConnection);
 				connectionDropped?.Invoke();
 				ShutDown();
-				Debug.Log("Client got disconnected from the server");
 			}
 		}
 	}
@@ -100,19 +111,25 @@ public class Client : MonoSingleton<Client>
 		driver.EndSend(writer);
 	}
 
-	// Event Parsing
+	#endregion
+	
+	#region Event Parsing
+	
 	private void RegisterToEvent()
 	{
 		NetUtility.C_KEEP_ALIVE += OnKeepAlive;
 	}
-
+	
 	private void UnregisterToEvent()
 	{
 		NetUtility.C_KEEP_ALIVE -= OnKeepAlive;
 	}
-
+	
 	private void OnKeepAlive(NetMessage nm)
 	{
+		// Send it back to keep both alive
 		SendToServer(nm);
 	}
+
+	#endregion
 }

@@ -9,8 +9,9 @@ public enum CameraAngle
 	blackTeam = 2
 }
 
-public class GameUI : MonoSingleton<GameUI>
+public class GameUI : MonoBehaviour
 {
+	public static GameUI Instance { set; get; }
 	[SerializeField] private Animator menuAnimator;
 	[SerializeField] private TMP_InputField addressInput;
 	[SerializeField] private GameObject[] cameraAngles;
@@ -22,6 +23,7 @@ public class GameUI : MonoSingleton<GameUI>
 
 	private void Awake()
 	{
+		Instance = this;
 		RegisterEvents();
 	}
 

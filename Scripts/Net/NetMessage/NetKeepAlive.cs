@@ -1,7 +1,4 @@
 using Unity.Networking.Transport;
-using Unity.Collections;
-using UnityEngine;
-using System;
 
 public class NetKeepAlive : NetMessage
 {

@@ -1,7 +1,5 @@
 using Unity.Networking.Transport;
-using Unity.Collections;
-using UnityEngine;
-using System;
+
 public class NetMessage
 {
 	public OpCode Code { get; set; }

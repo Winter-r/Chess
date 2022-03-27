@@ -3,10 +3,20 @@ using Unity.Collections;
 using UnityEngine;
 using System;
 
-public class Server : MonoSingleton<Server>
+public class Server : MonoBehaviour
 {
+	#region Singleton Implementation
+
+	public static Server Instance { set; get; }
+	private void Awake()
+	{
+		Instance = this;
+	}
+
+	#endregion
+
 	public NetworkDriver driver;
-	protected NativeList<NetworkConnection> connections;
+	private NativeList<NetworkConnection> connections;
 
 	private bool isActive = false;
 	private const float keepAliveTickRate = 20.0f;
@@ -14,22 +24,23 @@ public class Server : MonoSingleton<Server>
 
 	public Action connectionDropped;
 
-	// Methods
+	#region Methods
+
 	public void Init(ushort port)
 	{
 		driver = NetworkDriver.Create();
-		NetworkEndPoint endPoint = NetworkEndPoint.AnyIpv4;
-		endPoint.Port = port;
+		NetworkEndPoint endpoint = NetworkEndPoint.AnyIpv4;
+		endpoint.Port = port;
 
-		if (driver.Bind(endPoint) != 0)
+		if (driver.Bind(endpoint) != 0)
 		{
-			Debug.Log("Unable to bind to the port " + endPoint.Port);
+			Debug.Log("Unable to bind on port " + endpoint.Port);
 			return;
 		}
 		else
 		{
 			driver.Listen();
-			Debug.Log("Currently Listening on port " + endPoint.Port);
+			Debug.Log("Currently listening on port " + endpoint.Port);
 		}
 
 		connections = new NativeList<NetworkConnection>(2, Allocator.Persistent);
@@ -51,12 +62,15 @@ public class Server : MonoSingleton<Server>
 		ShutDown();
 	}
 
+	public void OnApplicationQuit()
+	{
+		ShutDown();
+	}
+
 	public void Update()
 	{
 		if (!isActive)
-		{
 			return;
-		}
 
 		KeepAlive();
 
@@ -90,6 +104,7 @@ public class Server : MonoSingleton<Server>
 
 	private void AcceptNewConnections()
 	{
+		// Accept new Connections
 		NetworkConnection c;
 		while ((c = driver.Accept()) != default(NetworkConnection))
 		{
@@ -111,17 +126,19 @@ public class Server : MonoSingleton<Server>
 				}
 				else if (cmd == NetworkEvent.Type.Disconnect)
 				{
+					Debug.Log("Client disconnected from server");
 					connections[i] = default(NetworkConnection);
 					connectionDropped?.Invoke();
-					ShutDown();
-					Debug.Log("Client disconnected from server");
+					ShutDown(); // This is only happening because there are only 2 players.
 				}
-
 			}
 		}
 	}
 
-	// Server Specefic
+	#endregion
+	
+	#region Server Specific
+	
 	public void SendToClient(NetworkConnection connection, NetMessage msg)
 	{
 		DataStreamWriter writer;
@@ -129,16 +146,18 @@ public class Server : MonoSingleton<Server>
 		msg.Serialize(ref writer);
 		driver.EndSend(writer);
 	}
-
+	
 	public void Broadcast(NetMessage msg)
 	{
 		for (int i = 0; i < connections.Length; i++)
 		{
 			if (connections[i].IsCreated)
 			{
-				Debug.Log($"Sending {msg.Code} to : {connections[i].InternalId}");
+				Debug.Log($"Sending {msg.Code} to: {connections[i].InternalId}");
 				SendToClient(connections[i], msg);
 			}
 		}
 	}
+	
+	#endregion
 }

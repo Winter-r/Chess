@@ -1,5 +1,4 @@
 using Unity.Networking.Transport;
-using Unity.Collections;
 using UnityEngine;
 using System;
 
@@ -10,11 +9,7 @@ public enum OpCode
 	START_GAME = 3,
 	MAKE_MOVE = 4,
 	REMATCH = 5,
-	RESIGN = 6,
-	QUEEN_PROMO = 7,
-	KNIGHT_PROMO = 8,
-	BISHOP_PROMO = 9,
-	ROOK_PROMO = 10
+	RESIGN = 6
 }
 
 public static class NetUtility
@@ -30,11 +25,7 @@ public static class NetUtility
 			case OpCode.START_GAME: msg = new NetStartGame(stream); break;
 			case OpCode.MAKE_MOVE: msg = new NetMakeMove(stream); break;
 			case OpCode.REMATCH: msg = new NetRematch(stream); break;
-			case OpCode.RESIGN: msg = new NetRematch(stream); break;
-			case OpCode.QUEEN_PROMO: msg = new NetQueenPromo(stream); break;
-			case OpCode.KNIGHT_PROMO: msg = new NetKnightPromo(stream); break;
-			case OpCode.BISHOP_PROMO: msg = new NetBishopPromo(stream); break;
-			case OpCode.ROOK_PROMO: msg = new NetRookPromo(stream); break;
+			case OpCode.RESIGN: msg = new NetResign(stream); break;
 			default:
 				Debug.LogError("Message recieved had no OpCode");
 				break;
@@ -57,18 +48,10 @@ public static class NetUtility
 	public static Action<NetMessage> C_MAKE_MOVE;
 	public static Action<NetMessage> C_REMATCH;
 	public static Action<NetMessage> C_RESIGN;
-	public static Action<NetMessage> C_QUEEN_PROMO;
-	public static Action<NetMessage> C_KNIGHT_PROMO;
-	public static Action<NetMessage> C_BISHOP_PROMO;
-	public static Action<NetMessage> C_ROOK_PROMO;
 	public static Action<NetMessage, NetworkConnection> S_KEEP_ALIVE;
 	public static Action<NetMessage, NetworkConnection> S_WELCOME;
 	public static Action<NetMessage, NetworkConnection> S_START_GAME;
 	public static Action<NetMessage, NetworkConnection> S_MAKE_MOVE;
 	public static Action<NetMessage, NetworkConnection> S_REMATCH;
 	public static Action<NetMessage, NetworkConnection> S_RESIGN;
-	public static Action<NetMessage, NetworkConnection> S_QUEEN_PROMO;
-	public static Action<NetMessage, NetworkConnection> S_KNIGHT_PROMO;
-	public static Action<NetMessage, NetworkConnection> S_BISHOP_PROMO;
-	public static Action<NetMessage, NetworkConnection> S_ROOK_PROMO;
 }
