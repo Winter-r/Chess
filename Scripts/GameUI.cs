@@ -41,7 +41,7 @@ public class GameUI : MonoBehaviour
 	public void OnLocalGameButton()
 	{
 		menuAnimator.SetTrigger("InGameMenu");
-		chessBoard.drawLocalButton.gameObject.SetActive(true);
+		ChangeCamera(CameraAngle.whiteTeam);
 	}
 
 	public void OnOnlineGameButton()

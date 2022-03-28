@@ -2283,7 +2283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &793062033
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4202,7 +4202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1348252884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4219,10 +4219,10 @@ RectTransform:
   m_Father: {fileID: 1064650170}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1010, y: -450}
+  m_SizeDelta: {x: 1820, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1348252885
 MonoBehaviour:
@@ -6052,8 +6052,6 @@ MonoBehaviour:
   - {fileID: 1878513164}
   - {fileID: 437476951}
   - {fileID: 1379699367}
-  server: {fileID: 33947027111801832}
-  client: {fileID: 33947027111801831}
 --- !u!95 &1862168334
 Animator:
   serializedVersion: 4
@@ -7435,6 +7433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessBoard: {fileID: 33947027111801830}
+  isActive: 0
 --- !u!114 &33947027111801832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7448,3 +7447,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessBoard: {fileID: 33947027111801830}
+  isActive: 0
+  lastKeepAlive: 0

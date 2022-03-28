@@ -1,4 +1,3 @@
-using Unity.Networking.Transport;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -65,8 +64,6 @@ public class Chessboard : MonoBehaviour
     private int playerCount = -1;
     private int currentTeam = -1;
     private bool localGame = true;
-    private bool[] playerRematch = new bool[2];
-    private bool[] offerDraw = new bool[2];
 
     #endregion
 
@@ -1255,8 +1252,6 @@ public class Chessboard : MonoBehaviour
         currentlyDragging = null;
         availableMoves.Clear();
         moveList.Clear();
-        playerRematch[0] = playerRematch[1] = false;
-        offerDraw[0] = offerDraw[1] = false;
 
         // Clean Up
         for (int x = 0; x < TILE_COUNT_X; x++)
