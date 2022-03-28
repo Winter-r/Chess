@@ -28,7 +28,10 @@ public class Chessboard : MonoBehaviour
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject promotionScreen;
     [SerializeField] private Transform rematchIndicator;
+    [SerializeField] public Transform drawIndicator;
     [SerializeField] private Button rematchButton;
+    [SerializeField] public Button drawButton;
+    [SerializeField] public Button drawLocalButton;
 
     [Header("Prefabs & Materials")]
     [SerializeField] private GameObject[] prefabs;
@@ -48,14 +51,6 @@ public class Chessboard : MonoBehaviour
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
     private GameObject[,] tiles;
-    private GameObject[,] a1;
-    private GameObject[,] a2;
-    private GameObject[,] a3;
-    private GameObject[,] a4;
-    private GameObject[,] a5;
-    private GameObject[,] a6;
-    private GameObject[,] a7;
-    private GameObject[,] a8;
     private Camera currentCamera;
     private Vector2Int currentHover;
     private Vector3 bounds;
@@ -71,6 +66,7 @@ public class Chessboard : MonoBehaviour
     private int currentTeam = -1;
     private bool localGame = true;
     private bool[] playerRematch = new bool[2];
+    private bool[] offerDraw = new bool[2];
 
     #endregion
 
@@ -81,6 +77,8 @@ public class Chessboard : MonoBehaviour
     private void Start()
     {
         isWhiteTurn = true;
+        drawButton.gameObject.SetActive(false);
+        drawIndicator.gameObject.SetActive(false);
 
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
@@ -95,6 +93,12 @@ public class Chessboard : MonoBehaviour
         {
             currentCamera = Camera.main;
             return;
+        }
+
+        if (localGame)
+        {
+            drawButton.gameObject.SetActive(false);
+            drawIndicator.gameObject.SetActive(false);
         }
 
         RaycastHit info;
@@ -180,288 +184,288 @@ public class Chessboard : MonoBehaviour
 
                     #region Pawn
 
-                    if (cp.type == ChessPieceType.Pawn)
-                    {
-                        #region a Notation
-                        if (hitPos.x == 0 && hitPos.y == 0)
-                        {
-                            Debug.Log("a1");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 1)
-                        {
-                            Debug.Log("a2");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 2)
-                        {
-                            Debug.Log("a3");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 3)
-                        {
-                            Debug.Log("a4");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 4)
-                        {
-                            Debug.Log("a5");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 5)
-                        {
-                            Debug.Log("a6");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 6)
-                        {
-                            Debug.Log("a7");
-                        }
-                        if (hitPos.x == 0 && hitPos.y == 7)
-                        {
-                            Debug.Log("a8");
-                        }
-                        #endregion
+                    // if (cp.type == ChessPieceType.Pawn)
+                    // {
+                    // 	#region a Notation
+                    // 	if (hitPos.x == 0 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("a1");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("a2");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("a3");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("a4");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("a5");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("a6");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("a7");
+                    // 	}
+                    // 	if (hitPos.x == 0 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("a8");
+                    // 	}
+                    // 	#endregion
 
-                        #region b Notation
-                        if (hitPos.x == 1 && hitPos.y == 0)
-                        {
-                            Debug.Log("b1");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 1)
-                        {
-                            Debug.Log("b2");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 2)
-                        {
-                            Debug.Log("b3");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 3)
-                        {
-                            Debug.Log("b4");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 4)
-                        {
-                            Debug.Log("b5");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 5)
-                        {
-                            Debug.Log("b6");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 6)
-                        {
-                            Debug.Log("b7");
-                        }
-                        if (hitPos.x == 1 && hitPos.y == 7)
-                        {
-                            Debug.Log("b8");
-                        }
-                        #endregion
+                    // 	#region b Notation
+                    // 	if (hitPos.x == 1 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("b1");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("b2");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("b3");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("b4");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("b5");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("b6");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("b7");
+                    // 	}
+                    // 	if (hitPos.x == 1 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("b8");
+                    // 	}
+                    // 	#endregion
 
-                        #region c Notation
-                        if (hitPos.x == 2 && hitPos.y == 0)
-                        {
-                            Debug.Log("c1");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 1)
-                        {
-                            Debug.Log("c2");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 2)
-                        {
-                            Debug.Log("c3");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 3)
-                        {
-                            Debug.Log("c4");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 4)
-                        {
-                            Debug.Log("c5");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 5)
-                        {
-                            Debug.Log("c6");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 6)
-                        {
-                            Debug.Log("c7");
-                        }
-                        if (hitPos.x == 2 && hitPos.y == 7)
-                        {
-                            Debug.Log("c8");
-                        }
-                        #endregion
+                    // 	#region c Notation
+                    // 	if (hitPos.x == 2 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("c1");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("c2");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("c3");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("c4");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("c5");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("c6");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("c7");
+                    // 	}
+                    // 	if (hitPos.x == 2 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("c8");
+                    // 	}
+                    // 	#endregion
 
-                        #region d Notation
-                        if (hitPos.x == 3 && hitPos.y == 0)
-                        {
-                            Debug.Log("d1");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 1)
-                        {
-                            Debug.Log("d2");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 2)
-                        {
-                            Debug.Log("d3");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 3)
-                        {
-                            Debug.Log("d4");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 4)
-                        {
-                            Debug.Log("d5");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 5)
-                        {
-                            Debug.Log("d6");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 6)
-                        {
-                            Debug.Log("d7");
-                        }
-                        if (hitPos.x == 3 && hitPos.y == 7)
-                        {
-                            Debug.Log("d8");
-                        }
-                        #endregion
+                    // 	#region d Notation
+                    // 	if (hitPos.x == 3 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("d1");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("d2");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("d3");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("d4");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("d5");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("d6");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("d7");
+                    // 	}
+                    // 	if (hitPos.x == 3 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("d8");
+                    // 	}
+                    // 	#endregion
 
-                        #region e Notation
-                        if (hitPos.x == 4 && hitPos.y == 0)
-                        {
-                            Debug.Log("e1");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 1)
-                        {
-                            Debug.Log("e2");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 2)
-                        {
-                            Debug.Log("e3");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 3)
-                        {
-                            Debug.Log("e4");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 4)
-                        {
-                            Debug.Log("e5");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 5)
-                        {
-                            Debug.Log("e6");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 6)
-                        {
-                            Debug.Log("e7");
-                        }
-                        if (hitPos.x == 4 && hitPos.y == 7)
-                        {
-                            Debug.Log("e8");
-                        }
-                        #endregion
+                    // 	#region e Notation
+                    // 	if (hitPos.x == 4 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("e1");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("e2");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("e3");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("e4");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("e5");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("e6");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("e7");
+                    // 	}
+                    // 	if (hitPos.x == 4 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("e8");
+                    // 	}
+                    // 	#endregion
 
-                        #region f Notation
-                        if (hitPos.x == 5 && hitPos.y == 0)
-                        {
-                            Debug.Log("f1");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 1)
-                        {
-                            Debug.Log("f2");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 2)
-                        {
-                            Debug.Log("f3");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 3)
-                        {
-                            Debug.Log("f4");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 4)
-                        {
-                            Debug.Log("f5");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 5)
-                        {
-                            Debug.Log("f6");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 6)
-                        {
-                            Debug.Log("f7");
-                        }
-                        if (hitPos.x == 5 && hitPos.y == 7)
-                        {
-                            Debug.Log("f8");
-                        }
-                        #endregion
+                    // 	#region f Notation
+                    // 	if (hitPos.x == 5 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("f1");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("f2");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("f3");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("f4");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("f5");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("f6");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("f7");
+                    // 	}
+                    // 	if (hitPos.x == 5 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("f8");
+                    // 	}
+                    // 	#endregion
 
-                        #region g Notation
-                        if (hitPos.x == 6 && hitPos.y == 0)
-                        {
-                            Debug.Log("g1");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 1)
-                        {
-                            Debug.Log("g2");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 2)
-                        {
-                            Debug.Log("g3");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 3)
-                        {
-                            Debug.Log("g4");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 4)
-                        {
-                            Debug.Log("g5");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 5)
-                        {
-                            Debug.Log("g6");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 6)
-                        {
-                            Debug.Log("g7");
-                        }
-                        if (hitPos.x == 6 && hitPos.y == 7)
-                        {
-                            Debug.Log("g8");
-                        }
-                        #endregion
+                    // 	#region g Notation
+                    // 	if (hitPos.x == 6 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("g1");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("g2");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("g3");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("g4");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("g5");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("g6");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("g7");
+                    // 	}
+                    // 	if (hitPos.x == 6 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("g8");
+                    // 	}
+                    // 	#endregion
 
-                        #region h Notation
-                        if (hitPos.x == 7 && hitPos.y == 0)
-                        {
-                            Debug.Log("h1");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 1)
-                        {
-                            Debug.Log("h2");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 2)
-                        {
-                            Debug.Log("h3");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 3)
-                        {
-                            Debug.Log("h4");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 4)
-                        {
-                            Debug.Log("h5");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 5)
-                        {
-                            Debug.Log("h6");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 6)
-                        {
-                            Debug.Log("h7");
-                        }
-                        if (hitPos.x == 7 && hitPos.y == 7)
-                        {
-                            Debug.Log("h8");
-                        }
-                        #endregion
-                    }
+                    // 	#region h Notation
+                    // 	if (hitPos.x == 7 && hitPos.y == 0)
+                    // 	{
+                    // 		Debug.Log("h1");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 1)
+                    // 	{
+                    // 		Debug.Log("h2");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 2)
+                    // 	{
+                    // 		Debug.Log("h3");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 3)
+                    // 	{
+                    // 		Debug.Log("h4");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 4)
+                    // 	{
+                    // 		Debug.Log("h5");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 5)
+                    // 	{
+                    // 		Debug.Log("h6");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 6)
+                    // 	{
+                    // 		Debug.Log("h7");
+                    // 	}
+                    // 	if (hitPos.x == 7 && hitPos.y == 7)
+                    // 	{
+                    // 		Debug.Log("h8");
+                    // 	}
+                    // 	#endregion
+                    // }
 
                     #endregion
 
@@ -864,55 +868,27 @@ public class Chessboard : MonoBehaviour
         }
     }
 
-    public void GameReset()
+    public void OnDrawButton()
     {
-        // UI
-        rematchButton.interactable = true;
-
-        rematchIndicator.transform.GetChild(0).gameObject.SetActive(false);
-        rematchIndicator.transform.GetChild(1).gameObject.SetActive(false);
-
-        victoryScreen.transform.GetChild(0).gameObject.SetActive(false);
-        victoryScreen.transform.GetChild(1).gameObject.SetActive(false);
-        victoryScreen.SetActive(false);
-
-        promotionScreen.SetActive(false);
-
-        // Fields Reset
-        currentlyDragging = null;
-        availableMoves.Clear();
-        moveList.Clear();
-        playerRematch[0] = playerRematch[1] = false;
-
-        // Clean Up
-        for (int x = 0; x < TILE_COUNT_X; x++)
+        if (localGame)
         {
-            for (int y = 0; y < TILE_COUNT_Y; y++)
-            {
-                if (chessPieces[x, y] != null)
-                {
-                    Destroy(chessPieces[x, y].gameObject);
-                }
+            NetDraw wdr = new NetDraw();
+            wdr.teamId = 0;
+            wdr.offerDraw = 1;
+            Client.Instance.SendToServer(wdr);
 
-                chessPieces[x, y] = null;
-            }
+            NetDraw bdr = new NetDraw();
+            bdr.teamId = 1;
+            bdr.offerDraw = 1;
+            Client.Instance.SendToServer(bdr);
         }
-
-        for (int i = 0; i < deadWhites.Count; i++)
+        else
         {
-            Destroy(deadWhites[i].gameObject);
+            NetDraw dr = new NetDraw();
+            dr.teamId = currentTeam;
+            dr.offerDraw = 1;
+            Client.Instance.SendToServer(dr);
         }
-        for (int i = 0; i < deadBlacks.Count; i++)
-        {
-            Destroy(deadBlacks[i].gameObject);
-        }
-
-        deadWhites.Clear();
-        deadBlacks.Clear();
-
-        SpawnAllPieces();
-        PositionAllPieces();
-        isWhiteTurn = true;
     }
 
     public void OnMenuButton()
@@ -929,6 +905,8 @@ public class Chessboard : MonoBehaviour
 
         playerCount = -1;
         currentTeam = -1;
+        drawLocalButton.gameObject.SetActive(false);
+        drawButton.gameObject.SetActive(false);
     }
 
     public void OnQueenButton()
@@ -937,6 +915,15 @@ public class Chessboard : MonoBehaviour
         BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
         OnQueenPromotion(lastMove, targetPawn);
+
+        if (isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+        }
+        else if (!isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+        }
     }
 
     public void OnKnightButton()
@@ -945,6 +932,15 @@ public class Chessboard : MonoBehaviour
         BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
         OnKnightPromotion(lastMove, targetPawn);
+
+        if (isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+        }
+        else if (!isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+        }
     }
 
     public void OnBishopButton()
@@ -953,6 +949,16 @@ public class Chessboard : MonoBehaviour
         BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
         OnBishopPromotion(lastMove, targetPawn);
+
+        if (isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+        }
+        else if (!isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+        }
+
     }
 
     public void OnRookButton()
@@ -961,6 +967,15 @@ public class Chessboard : MonoBehaviour
         BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
         OnRookPromotion(lastMove, targetPawn);
+
+        if (isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+        }
+        else if (!isWhiteTurn)
+        {
+            GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+        }
     }
 
     #endregion
@@ -1285,6 +1300,58 @@ public class Chessboard : MonoBehaviour
         return -Vector2Int.one; // Invalid
     }
 
+    public void GameReset()
+    {
+        // UI
+        rematchButton.interactable = true;
+
+        rematchIndicator.transform.GetChild(0).gameObject.SetActive(false);
+        rematchIndicator.transform.GetChild(1).gameObject.SetActive(false);
+
+        victoryScreen.transform.GetChild(0).gameObject.SetActive(false);
+        victoryScreen.transform.GetChild(1).gameObject.SetActive(false);
+        victoryScreen.SetActive(false);
+
+        promotionScreen.SetActive(false);
+
+        // Fields Reset
+        currentlyDragging = null;
+        availableMoves.Clear();
+        moveList.Clear();
+        playerRematch[0] = playerRematch[1] = false;
+        offerDraw[0] = offerDraw[1] = false;
+
+        // Clean Up
+        for (int x = 0; x < TILE_COUNT_X; x++)
+        {
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null)
+                {
+                    Destroy(chessPieces[x, y].gameObject);
+                }
+
+                chessPieces[x, y] = null;
+            }
+        }
+
+        for (int i = 0; i < deadWhites.Count; i++)
+        {
+            Destroy(deadWhites[i].gameObject);
+        }
+        for (int i = 0; i < deadBlacks.Count; i++)
+        {
+            Destroy(deadBlacks[i].gameObject);
+        }
+
+        deadWhites.Clear();
+        deadBlacks.Clear();
+
+        SpawnAllPieces();
+        PositionAllPieces();
+        isWhiteTurn = true;
+    }
+
     #endregion
 
     #region Multiplayer
@@ -1294,11 +1361,14 @@ public class Chessboard : MonoBehaviour
         NetUtility.S_WELCOME += OnWelcomeServer;
         NetUtility.S_MAKE_MOVE += OnMakeMoveServer;
         NetUtility.S_REMATCH += OnRematchServer;
+        NetUtility.S_DRAW += OnDrawServer;
 
         NetUtility.C_WELCOME += OnWelcomeClient;
         NetUtility.C_START_GAME += OnStartGameClient;
         NetUtility.C_MAKE_MOVE += OnMakeMoveClient;
         NetUtility.C_REMATCH += OnRematchClient;
+        NetUtility.C_DRAW += OnDrawClient;
+
 
         GameUI.Instance.SetLocalGame += OnSetLocalGame;
     }
@@ -1308,16 +1378,18 @@ public class Chessboard : MonoBehaviour
         NetUtility.S_WELCOME -= OnWelcomeServer;
         NetUtility.S_MAKE_MOVE -= OnMakeMoveServer;
         NetUtility.S_REMATCH -= OnRematchServer;
+        NetUtility.S_DRAW -= OnDrawServer;
 
         NetUtility.C_WELCOME -= OnWelcomeClient;
         NetUtility.C_START_GAME -= OnStartGameClient;
         NetUtility.C_MAKE_MOVE -= OnMakeMoveClient;
-        NetUtility.C_REMATCH -= OnRematchClient;
+        NetUtility.C_DRAW -= OnDrawClient;
 
         GameUI.Instance.SetLocalGame -= OnSetLocalGame;
     }
 
-    // Server	
+    #region Server
+
     private void OnWelcomeServer(NetMessage msg, NetworkConnection cnn)
     {
         NetWelcome nw = msg as NetWelcome;
@@ -1344,7 +1416,15 @@ public class Chessboard : MonoBehaviour
         Server.Instance.Broadcast(msg);
     }
 
-    // Client
+    private void OnDrawServer(NetMessage msg, NetworkConnection cnn)
+    {
+        Server.Instance.Broadcast(msg);
+    }
+
+    #endregion
+
+    #region Client
+
     private void OnWelcomeClient(NetMessage msg)
     {
         NetWelcome nw = msg as NetWelcome;
@@ -1399,6 +1479,29 @@ public class Chessboard : MonoBehaviour
             GameReset();
         }
     }
+
+    private void OnDrawClient(NetMessage msg)
+    {
+        NetDraw dr = msg as NetDraw;
+
+        offerDraw[dr.teamId] = dr.offerDraw == 1;
+
+        if (dr.teamId != currentTeam)
+        {
+            if (!localGame)
+            {
+                drawIndicator.transform.GetChild((dr.offerDraw == 1) ? 0 : 1).gameObject.SetActive(true);
+            }
+        }
+
+        if (offerDraw[0] && offerDraw[1])
+        {
+            victoryScreen.SetActive(true);
+            victoryScreen.transform.GetChild(2).gameObject.SetActive(true);
+        }
+    }
+
+    #endregion
 
     private void ShutdownRelay()
     {

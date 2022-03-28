@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Net;
 using UnityEngine;
 using System;
 using TMPro;
@@ -12,7 +14,8 @@ public enum CameraAngle
 public class GameUI : MonoBehaviour
 {
 	public static GameUI Instance { set; get; }
-	[SerializeField] private Animator menuAnimator;
+	[SerializeField] public Animator menuAnimator;
+	public Chessboard chessBoard;
 	[SerializeField] private TMP_InputField addressInput;
 	[SerializeField] private GameObject[] cameraAngles;
 
@@ -45,6 +48,7 @@ public class GameUI : MonoBehaviour
 		SetLocalGame?.Invoke(true);
 		server.Init(8007);
 		client.Init("127.0.0.1", 8007);
+		chessBoard.drawLocalButton.gameObject.SetActive(true);
 	}
 
 	public void OnOnlineGameButton()
@@ -73,9 +77,9 @@ public class GameUI : MonoBehaviour
 
 	public void OnHostBackButton()
 	{
+		menuAnimator.SetTrigger("OnlineMenu");
 		server.ShutDown();
 		client.ShutDown();
-		menuAnimator.SetTrigger("OnlineMenu");
 	}
 
 	public void OnLeaveGame()

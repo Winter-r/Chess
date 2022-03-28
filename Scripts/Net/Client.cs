@@ -14,6 +14,7 @@ public class Client : MonoBehaviour
 
 	#endregion
 
+	public Chessboard chessBoard;
 	public NetworkDriver driver;
 	private NetworkConnection connection;
 
@@ -28,13 +29,20 @@ public class Client : MonoBehaviour
 		driver = NetworkDriver.Create();
 		NetworkEndPoint endpoint = NetworkEndPoint.Parse(ip, port);
 
-		connection = driver.Connect(endpoint);
+		if (endpoint.IsValid)
+		{
+			connection = driver.Connect(endpoint);
 
-		Debug.Log("Attempting to connect to Server on " + endpoint.Address);
+			Debug.Log("Attempting to connect to Server on " + endpoint.Address);
 
-		isActive = true;
+			isActive = true;
 
-		RegisterToEvent();
+			RegisterToEvent();
+		}
+		else if (!endpoint.IsValid)
+		{
+			ShutDown();
+		}
 	}
 
 	public void ShutDown()
@@ -45,6 +53,13 @@ public class Client : MonoBehaviour
 			driver.Dispose();
 			isActive = false;
 			connection = default(NetworkConnection);
+			chessBoard.GameReset();
+			GameUI.Instance.ChangeCamera(CameraAngle.menu);
+			GameUI.Instance.menuAnimator.SetTrigger("StartMenu");
+			chessBoard.drawButton.gameObject.SetActive(false);
+			chessBoard.drawIndicator.gameObject.SetActive(false);
+			chessBoard.drawIndicator.transform.GetChild(0).gameObject.SetActive(false);
+			chessBoard.drawIndicator.transform.GetChild(1).gameObject.SetActive(false);
 		}
 	}
 
@@ -65,6 +80,13 @@ public class Client : MonoBehaviour
 
 		driver.ScheduleUpdate().Complete();
 		CheckAlive();
+
+		if (connection.IsCreated && isActive)
+		{
+			chessBoard.drawButton.interactable = true;
+			chessBoard.drawButton.gameObject.SetActive(true);
+			chessBoard.drawIndicator.gameObject.SetActive(true);
+		}
 
 		UpdateMessagePump();
 	}
@@ -112,19 +134,19 @@ public class Client : MonoBehaviour
 	}
 
 	#endregion
-	
+
 	#region Event Parsing
-	
+
 	private void RegisterToEvent()
 	{
 		NetUtility.C_KEEP_ALIVE += OnKeepAlive;
 	}
-	
+
 	private void UnregisterToEvent()
 	{
 		NetUtility.C_KEEP_ALIVE -= OnKeepAlive;
 	}
-	
+
 	private void OnKeepAlive(NetMessage nm)
 	{
 		// Send it back to keep both alive

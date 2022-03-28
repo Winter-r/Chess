@@ -15,8 +15,9 @@ public class Server : MonoBehaviour
 
 	#endregion
 
+	public Chessboard chessBoard;
 	public NetworkDriver driver;
-	private NativeList<NetworkConnection> connections;
+	public NativeList<NetworkConnection> connections;
 
 	private bool isActive = false;
 	private const float keepAliveTickRate = 20.0f;
@@ -32,9 +33,10 @@ public class Server : MonoBehaviour
 		NetworkEndPoint endpoint = NetworkEndPoint.AnyIpv4;
 		endpoint.Port = port;
 
-		if (driver.Bind(endpoint) != 0)
+		if (driver.Bind(endpoint) != 0 || !endpoint.IsValid)
 		{
 			Debug.Log("Unable to bind on port " + endpoint.Port);
+			ShutDown();
 			return;
 		}
 		else
@@ -54,6 +56,14 @@ public class Server : MonoBehaviour
 			driver.Dispose();
 			connections.Dispose();
 			isActive = false;
+			chessBoard.GameReset();
+			GameUI.Instance.ChangeCamera(CameraAngle.menu);
+			GameUI.Instance.menuAnimator.SetTrigger("StartMenu");
+			chessBoard.drawButton.gameObject.SetActive(false);
+			chessBoard.drawIndicator.gameObject.SetActive(false);
+			chessBoard.drawIndicator.transform.GetChild(0).gameObject.SetActive(false);
+			chessBoard.drawIndicator.transform.GetChild(1).gameObject.SetActive(false);
+
 		}
 	}
 
@@ -73,6 +83,13 @@ public class Server : MonoBehaviour
 			return;
 
 		KeepAlive();
+		
+		if (connections.Length == 2)
+		{
+			chessBoard.drawButton.interactable = true;
+			chessBoard.drawButton.gameObject.SetActive(true);
+			chessBoard.drawIndicator.gameObject.SetActive(true);
+		}
 
 		driver.ScheduleUpdate().Complete();
 
@@ -80,7 +97,7 @@ public class Server : MonoBehaviour
 		AcceptNewConnections();
 		UpdateMessagePump();
 	}
-	
+
 	private void KeepAlive()
 	{
 		if (Time.time - lastKeepAlive > keepAliveTickRate)
@@ -136,9 +153,9 @@ public class Server : MonoBehaviour
 	}
 
 	#endregion
-	
+
 	#region Server Specific
-	
+
 	public void SendToClient(NetworkConnection connection, NetMessage msg)
 	{
 		DataStreamWriter writer;
@@ -146,7 +163,7 @@ public class Server : MonoBehaviour
 		msg.Serialize(ref writer);
 		driver.EndSend(writer);
 	}
-	
+
 	public void Broadcast(NetMessage msg)
 	{
 		for (int i = 0; i < connections.Length; i++)
@@ -158,6 +175,6 @@ public class Server : MonoBehaviour
 			}
 		}
 	}
-	
+
 	#endregion
 }

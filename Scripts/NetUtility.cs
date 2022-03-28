@@ -9,7 +9,8 @@ public enum OpCode
 	START_GAME = 3,
 	MAKE_MOVE = 4,
 	REMATCH = 5,
-	RESIGN = 6
+	RESIGN = 6,
+	DRAW = 7
 }
 
 public static class NetUtility
@@ -26,6 +27,7 @@ public static class NetUtility
 			case OpCode.MAKE_MOVE: msg = new NetMakeMove(stream); break;
 			case OpCode.REMATCH: msg = new NetRematch(stream); break;
 			case OpCode.RESIGN: msg = new NetResign(stream); break;
+			case OpCode.DRAW: msg = new NetDraw(stream); break;
 			default:
 				Debug.LogError("Message recieved had no OpCode");
 				break;
@@ -48,10 +50,12 @@ public static class NetUtility
 	public static Action<NetMessage> C_MAKE_MOVE;
 	public static Action<NetMessage> C_REMATCH;
 	public static Action<NetMessage> C_RESIGN;
+	public static Action<NetMessage> C_DRAW;
 	public static Action<NetMessage, NetworkConnection> S_KEEP_ALIVE;
 	public static Action<NetMessage, NetworkConnection> S_WELCOME;
 	public static Action<NetMessage, NetworkConnection> S_START_GAME;
 	public static Action<NetMessage, NetworkConnection> S_MAKE_MOVE;
 	public static Action<NetMessage, NetworkConnection> S_REMATCH;
 	public static Action<NetMessage, NetworkConnection> S_RESIGN;
+	public static Action<NetMessage, NetworkConnection> S_DRAW;
 }

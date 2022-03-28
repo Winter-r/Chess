@@ -1,5 +1,4 @@
 using Unity.Networking.Transport;
-using UnityEngine;
 
 public class NetResign : NetMessage
 {
