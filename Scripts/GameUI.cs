@@ -21,13 +21,9 @@ public class GameUI : MonoBehaviour
 
 	public Action<bool> SetLocalGame;
 
-	public Server server;
-	public Client client;
-
 	private void Awake()
 	{
 		Instance = this;
-		RegisterEvents();
 	}
 
 	// Cameras
@@ -45,9 +41,6 @@ public class GameUI : MonoBehaviour
 	public void OnLocalGameButton()
 	{
 		menuAnimator.SetTrigger("InGameMenu");
-		SetLocalGame?.Invoke(true);
-		server.Init(8007);
-		client.Init("127.0.0.1", 8007);
 		chessBoard.drawLocalButton.gameObject.SetActive(true);
 	}
 
@@ -59,15 +52,12 @@ public class GameUI : MonoBehaviour
 	public void OnOnlineHostButton()
 	{
 		SetLocalGame?.Invoke(false);
-		server.Init(8007);
-		client.Init("127.0.0.1", 8007);
 		menuAnimator.SetTrigger("HostMenu");
 	}
 
 	public void OnOnlineConnectButton()
 	{
 		SetLocalGame?.Invoke(false);
-		client.Init(addressInput.text, 8007);
 	}
 
 	public void OnOnlineBackButton()
@@ -78,28 +68,11 @@ public class GameUI : MonoBehaviour
 	public void OnHostBackButton()
 	{
 		menuAnimator.SetTrigger("OnlineMenu");
-		server.ShutDown();
-		client.ShutDown();
 	}
 
 	public void OnLeaveGame()
 	{
 		ChangeCamera(CameraAngle.menu);
 		menuAnimator.SetTrigger("StartMenu");
-	}
-	
-	private void RegisterEvents()
-	{
-		NetUtility.C_START_GAME += OnStartGameClient;
-	}
-
-	private void UnRegisterEvents()
-	{
-		NetUtility.C_START_GAME -= OnStartGameClient;
-	}
-
-	private void OnStartGameClient(NetMessage obj)
-	{
-		menuAnimator.SetTrigger("InGameMenu");
 	}
 }

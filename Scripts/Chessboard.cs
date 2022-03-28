@@ -84,7 +84,6 @@ public class Chessboard : MonoBehaviour
         SpawnAllPieces();
         PositionAllPieces();
 
-        RegisterEvents();
     }
 
     private void Update()
@@ -166,17 +165,6 @@ public class Chessboard : MonoBehaviour
                             GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
                         }
                     }
-
-                    // Net Implementation
-                    NetMakeMove mm = new NetMakeMove();
-
-                    mm.originalX = previousPos.x;
-                    mm.originalY = previousPos.y;
-                    mm.destinationX = hitPos.x;
-                    mm.destinationY = hitPos.y;
-                    mm.teamId = currentTeam;
-
-                    Client.Instance.SendToServer(mm);
 
                     BasePiece cp = chessPieces[hitPos.x, hitPos.y];
 
@@ -845,59 +833,8 @@ public class Chessboard : MonoBehaviour
 
     #region UI Buttons
 
-    public void OnRematchButton()
-    {
-        if (localGame)
-        {
-            NetRematch wrm = new NetRematch();
-            wrm.teamId = 0;
-            wrm.wantRematch = 1;
-            Client.Instance.SendToServer(wrm);
-
-            NetRematch brm = new NetRematch();
-            brm.teamId = 1;
-            brm.wantRematch = 1;
-            Client.Instance.SendToServer(brm);
-        }
-        else
-        {
-            NetRematch rm = new NetRematch();
-            rm.teamId = currentTeam;
-            rm.wantRematch = 1;
-            Client.Instance.SendToServer(rm);
-        }
-    }
-
-    public void OnDrawButton()
-    {
-        if (localGame)
-        {
-            NetDraw wdr = new NetDraw();
-            wdr.teamId = 0;
-            wdr.offerDraw = 1;
-            Client.Instance.SendToServer(wdr);
-
-            NetDraw bdr = new NetDraw();
-            bdr.teamId = 1;
-            bdr.offerDraw = 1;
-            Client.Instance.SendToServer(bdr);
-        }
-        else
-        {
-            NetDraw dr = new NetDraw();
-            dr.teamId = currentTeam;
-            dr.offerDraw = 1;
-            Client.Instance.SendToServer(dr);
-        }
-    }
-
     public void OnMenuButton()
     {
-        NetRematch rm = new NetRematch();
-        rm.teamId = currentTeam;
-        rm.wantRematch = 0;
-        Client.Instance.SendToServer(rm);
-
         GameReset();
         GameUI.Instance.OnLeaveGame();
 
@@ -1350,170 +1287,6 @@ public class Chessboard : MonoBehaviour
         SpawnAllPieces();
         PositionAllPieces();
         isWhiteTurn = true;
-    }
-
-    #endregion
-
-    #region Multiplayer
-
-    private void RegisterEvents()
-    {
-        NetUtility.S_WELCOME += OnWelcomeServer;
-        NetUtility.S_MAKE_MOVE += OnMakeMoveServer;
-        NetUtility.S_REMATCH += OnRematchServer;
-        NetUtility.S_DRAW += OnDrawServer;
-
-        NetUtility.C_WELCOME += OnWelcomeClient;
-        NetUtility.C_START_GAME += OnStartGameClient;
-        NetUtility.C_MAKE_MOVE += OnMakeMoveClient;
-        NetUtility.C_REMATCH += OnRematchClient;
-        NetUtility.C_DRAW += OnDrawClient;
-
-
-        GameUI.Instance.SetLocalGame += OnSetLocalGame;
-    }
-
-    private void UnRegisterEvents()
-    {
-        NetUtility.S_WELCOME -= OnWelcomeServer;
-        NetUtility.S_MAKE_MOVE -= OnMakeMoveServer;
-        NetUtility.S_REMATCH -= OnRematchServer;
-        NetUtility.S_DRAW -= OnDrawServer;
-
-        NetUtility.C_WELCOME -= OnWelcomeClient;
-        NetUtility.C_START_GAME -= OnStartGameClient;
-        NetUtility.C_MAKE_MOVE -= OnMakeMoveClient;
-        NetUtility.C_DRAW -= OnDrawClient;
-
-        GameUI.Instance.SetLocalGame -= OnSetLocalGame;
-    }
-
-    #region Server
-
-    private void OnWelcomeServer(NetMessage msg, NetworkConnection cnn)
-    {
-        NetWelcome nw = msg as NetWelcome;
-
-        nw.AssignedTeam = ++playerCount;
-
-        Server.Instance.SendToClient(cnn, nw);
-
-        if (playerCount == 1)
-        {
-            Server.Instance.Broadcast(new NetStartGame());
-        }
-    }
-
-    private void OnMakeMoveServer(NetMessage msg, NetworkConnection cnn)
-    {
-        NetMakeMove mm = msg as NetMakeMove;
-
-        Server.Instance.Broadcast(msg);
-    }
-
-    private void OnRematchServer(NetMessage msg, NetworkConnection cnn)
-    {
-        Server.Instance.Broadcast(msg);
-    }
-
-    private void OnDrawServer(NetMessage msg, NetworkConnection cnn)
-    {
-        Server.Instance.Broadcast(msg);
-    }
-
-    #endregion
-
-    #region Client
-
-    private void OnWelcomeClient(NetMessage msg)
-    {
-        NetWelcome nw = msg as NetWelcome;
-
-        currentTeam = nw.AssignedTeam;
-
-        Debug.Log($"My assigned team is {nw.AssignedTeam}");
-
-        if (localGame && currentTeam == 0)
-        {
-            Server.Instance.Broadcast(new NetStartGame());
-        }
-    }
-
-    private void OnStartGameClient(NetMessage msg)
-    {
-        GameUI.Instance.ChangeCamera((currentTeam == 0) ? CameraAngle.whiteTeam : CameraAngle.blackTeam);
-    }
-
-    private void OnMakeMoveClient(NetMessage msg)
-    {
-        NetMakeMove mm = msg as NetMakeMove;
-
-        if (mm.teamId != currentTeam)
-        {
-            BasePiece target = chessPieces[mm.originalX, mm.originalY];
-
-            availableMoves = target.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-            specialMove = target.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-
-            MoveTo(mm.originalX, mm.originalY, mm.destinationX, mm.destinationY);
-        }
-    }
-
-    private void OnRematchClient(NetMessage msg)
-    {
-        NetRematch rm = msg as NetRematch;
-
-        playerRematch[rm.teamId] = rm.wantRematch == 1;
-
-        if (rm.teamId != currentTeam)
-        {
-            rematchIndicator.transform.GetChild((rm.wantRematch == 1) ? 0 : 1).gameObject.SetActive(true);
-            if (rm.wantRematch != 1)
-            {
-                rematchButton.interactable = false;
-            }
-        }
-
-        if (playerRematch[0] && playerRematch[1])
-        {
-            GameReset();
-        }
-    }
-
-    private void OnDrawClient(NetMessage msg)
-    {
-        NetDraw dr = msg as NetDraw;
-
-        offerDraw[dr.teamId] = dr.offerDraw == 1;
-
-        if (dr.teamId != currentTeam)
-        {
-            if (!localGame)
-            {
-                drawIndicator.transform.GetChild((dr.offerDraw == 1) ? 0 : 1).gameObject.SetActive(true);
-            }
-        }
-
-        if (offerDraw[0] && offerDraw[1])
-        {
-            victoryScreen.SetActive(true);
-            victoryScreen.transform.GetChild(2).gameObject.SetActive(true);
-        }
-    }
-
-    #endregion
-
-    private void ShutdownRelay()
-    {
-        Client.Instance.ShutDown();
-        Server.Instance.ShutDown();
-    }
-
-    private void OnSetLocalGame(bool v)
-    {
-        playerCount = -1;
-        currentTeam = -1;
-        localGame = v;
     }
 
     #endregion
