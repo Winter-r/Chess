@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
-using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum CameraAngle
 {
@@ -12,18 +13,23 @@ public enum CameraAngle
 
 public class GameUI : MonoBehaviour
 {
-	public static GameUI Instance { set; get; }
-	[SerializeField] public Animator menuAnimator;
-	[SerializeField] private Chessboard chessBoard;
-	[SerializeField] private TMP_InputField addressInput;
-	[SerializeField] private GameObject[] cameraAngles;
+	#region Singleton Implementation
 
-	public Action<bool> SetLocalGame;
+	public static GameUI Instance { set; get; }
 
 	private void Awake()
 	{
 		Instance = this;
 	}
+
+	#endregion
+
+	[SerializeField] public Animator menuAnimator;
+	[SerializeField] private Chessboard chessBoard;
+	[SerializeField] private Button startButton;
+	[SerializeField] private GameObject[] cameraAngles;
+
+	public Action<bool> SetLocalGame;
 
 	// Cameras
 	public void ChangeCamera(CameraAngle index)
@@ -42,10 +48,21 @@ public class GameUI : MonoBehaviour
 		menuAnimator.SetTrigger("InGameMenu");
 		ChangeCamera(CameraAngle.local);
 	}
-	
+
 	public void OnLeaveGame()
 	{
 		ChangeCamera(CameraAngle.menu);
 		menuAnimator.SetTrigger("StartMenu");
+	}
+
+	public void OnOnlineGameButton()
+	{
+		SceneManager.LoadScene("Init");
+	}
+
+	public void OnOnlineStartButton()
+	{
+		startButton.gameObject.SetActive(false);
+		ChangeCamera(CameraAngle.whiteTeam);
 	}
 }

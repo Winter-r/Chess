@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Photon.Pun;
 
 public enum SpecialMove
 {
@@ -33,6 +34,7 @@ public class Chessboard : MonoBehaviour
 	[SerializeField] private GameObject[] prefabs;
 	[SerializeField] private int[] team;
 	[SerializeField] private Material[] pieceMaterials;
+	[SerializeField] private Mesh[] meshes;
 
 	#endregion
 
@@ -50,8 +52,14 @@ public class Chessboard : MonoBehaviour
 	private Camera currentCamera;
 	private Vector2Int currentHover;
 	private Vector3 bounds;
-	private bool isWhiteTurn;
 	private SpecialMove specialMove;
+	private bool isWhiteTurn;
+
+	#endregion
+
+	#region Multi Logic
+
+	PhotonView view;
 
 	#endregion
 
@@ -63,10 +71,10 @@ public class Chessboard : MonoBehaviour
 	{
 		isWhiteTurn = true;
 
+		view = GetComponent<PhotonView>();
 		GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
 		SpawnAllPieces();
 		PositionAllPieces();
-
 	}
 
 	private void Update()
@@ -128,7 +136,7 @@ public class Chessboard : MonoBehaviour
 				Vector2Int previousPos = new Vector2Int(currentlyDragging.currentX, currentlyDragging.currentY);
 
 				bool validMove = MoveTo(currentlyDragging, hitPos.x, hitPos.y);
-				
+
 				if (!validMove)
 				{
 					currentlyDragging.SetPosition(GetTileCenter(previousPos.x, previousPos.y));
@@ -429,32 +437,33 @@ public class Chessboard : MonoBehaviour
 				currentlyDragging = null;
 				RemoveHighlightTiles();
 			}
-		}
-		else
-		{
-			if (currentHover != -Vector2Int.one)
+			else
 			{
-				tiles[currentHover.x, currentHover.y].layer = (ContainsValidMove(ref availableMoves, currentHover)) ? LayerMask.NameToLayer("Highlight") : LayerMask.NameToLayer("Tile");
-				currentHover = -Vector2Int.one;
+				if (currentHover != -Vector2Int.one)
+				{
+					tiles[currentHover.x, currentHover.y].layer = (ContainsValidMove(ref availableMoves, currentHover)) ? LayerMask.NameToLayer("Highlight") : LayerMask.NameToLayer("Tile");
+					currentHover = -Vector2Int.one;
+				}
+
+				if (currentlyDragging && Input.GetMouseButtonUp(0))
+				{
+					currentlyDragging.SetPosition(GetTileCenter(currentlyDragging.currentX, currentlyDragging.currentY));
+					currentlyDragging = null;
+					RemoveHighlightTiles();
+				}
 			}
 
-			if (currentlyDragging && Input.GetMouseButtonUp(0))
-			{
-				currentlyDragging.SetPosition(GetTileCenter(currentlyDragging.currentX, currentlyDragging.currentY));
-				currentlyDragging = null;
-				RemoveHighlightTiles();
-			}
-		}
 
-		// Piece dragging smoothing
-		if (currentlyDragging)
-		{
-			Plane horizontalPlane = new Plane(Vector3.up, Vector3.up * yOffset);
-			float distance = 0.0f;
-
-			if (horizontalPlane.Raycast(ray, out distance))
+			// Piece dragging smoothing
+			if (currentlyDragging)
 			{
-				currentlyDragging.SetPosition(ray.GetPoint(distance) + Vector3.up * dragOffset);
+				Plane horizontalPlane = new Plane(Vector3.up, Vector3.up * yOffset);
+				float distance = 0.0f;
+
+				if (horizontalPlane.Raycast(ray, out distance))
+				{
+					currentlyDragging.SetPosition(ray.GetPoint(distance) + Vector3.up * dragOffset);
+				}
 			}
 		}
 	}
@@ -514,42 +523,42 @@ public class Chessboard : MonoBehaviour
 		chessPieces = new BasePiece[TILE_COUNT_X, TILE_COUNT_Y];
 
 		// White Team
-		chessPieces[0, 0] = SpawnSinglePiece(ChessPieceType.Rook, 0, 2);
-		chessPieces[1, 0] = SpawnSinglePiece(ChessPieceType.Knight, 0, 4);
-		chessPieces[2, 0] = SpawnSinglePiece(ChessPieceType.Bishop, 0, 6);
-		chessPieces[3, 0] = SpawnSinglePiece(ChessPieceType.Queen, 0, 8);
-		chessPieces[4, 0] = SpawnSinglePiece(ChessPieceType.King, 0, 10);
-		chessPieces[5, 0] = SpawnSinglePiece(ChessPieceType.Bishop, 0, 6);
-		chessPieces[6, 0] = SpawnSinglePiece(ChessPieceType.Knight, 0, 4);
-		chessPieces[7, 0] = SpawnSinglePiece(ChessPieceType.Rook, 0, 2);
+		chessPieces[0, 0] = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 2);
+		chessPieces[1, 0] = SpawnSinglePiece(ChessPieceType.Knight, 0, 0, 4);
+		chessPieces[2, 0] = SpawnSinglePiece(ChessPieceType.Bishop, 0, 0, 6);
+		chessPieces[3, 0] = SpawnSinglePiece(ChessPieceType.Queen, 0, 0, 8);
+		chessPieces[4, 0] = SpawnSinglePiece(ChessPieceType.King, 0, 0, 10);
+		chessPieces[5, 0] = SpawnSinglePiece(ChessPieceType.Bishop, 0, 0, 2);
+		chessPieces[6, 0] = SpawnSinglePiece(ChessPieceType.Knight, 0, 0, 4);
+		chessPieces[7, 0] = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 6);
 		for (int i = 0; i < TILE_COUNT_X; i++)
 		{
-			chessPieces[i, 1] = SpawnSinglePiece(ChessPieceType.Pawn, 0, 0);
+			chessPieces[i, 1] = SpawnSinglePiece(ChessPieceType.Pawn, 0, 0, 0);
 		}
 
 		// Black Team
-		chessPieces[0, 7] = SpawnSinglePiece(ChessPieceType.Rook, 1, 3);
-		chessPieces[1, 7] = SpawnSinglePiece(ChessPieceType.Knight, 1, 5);
-		chessPieces[2, 7] = SpawnSinglePiece(ChessPieceType.Bishop, 1, 7);
-		chessPieces[3, 7] = SpawnSinglePiece(ChessPieceType.Queen, 1, 9);
-		chessPieces[4, 7] = SpawnSinglePiece(ChessPieceType.King, 1, 11);
-		chessPieces[5, 7] = SpawnSinglePiece(ChessPieceType.Bishop, 1, 7);
-		chessPieces[6, 7] = SpawnSinglePiece(ChessPieceType.Knight, 1, 5);
-		chessPieces[7, 7] = SpawnSinglePiece(ChessPieceType.Rook, 1, 3);
+		chessPieces[0, 7] = SpawnSinglePiece(ChessPieceType.Rook, 1, 1, 3);
+		chessPieces[1, 7] = SpawnSinglePiece(ChessPieceType.Knight, 1, 1, 5);
+		chessPieces[2, 7] = SpawnSinglePiece(ChessPieceType.Bishop, 1, 1, 7);
+		chessPieces[3, 7] = SpawnSinglePiece(ChessPieceType.Queen, 1, 1, 9);
+		chessPieces[4, 7] = SpawnSinglePiece(ChessPieceType.King, 1, 1, 11);
+		chessPieces[5, 7] = SpawnSinglePiece(ChessPieceType.Bishop, 1, 1, 3);
+		chessPieces[6, 7] = SpawnSinglePiece(ChessPieceType.Knight, 1, 1, 5);
+		chessPieces[7, 7] = SpawnSinglePiece(ChessPieceType.Rook, 1, 1, 7);
 		for (int i = 0; i < TILE_COUNT_X; i++)
 		{
-			chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, 1, 1);
+			chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, 1, 1, 1);
 		}
 	}
 
-	private BasePiece SpawnSinglePiece(ChessPieceType type, int team, int pieceMaterial)
+	private BasePiece SpawnSinglePiece(ChessPieceType type, int team, int pieceMaterial, int mesh)
 	{
 		BasePiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<BasePiece>();
 
 		cp.type = type;
 		cp.team = team;
 		cp.GetComponent<MeshRenderer>().material = pieceMaterials[pieceMaterial];
-
+		cp.GetComponent<MeshFilter>().mesh = meshes[mesh];
 		return cp;
 	}
 
@@ -978,7 +987,7 @@ public class Chessboard : MonoBehaviour
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 0, 8);
+				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 0, 0, 8);
 				newQueen.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
@@ -986,7 +995,7 @@ public class Chessboard : MonoBehaviour
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 1, 9);
+				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 1, 1, 9);
 				newQueen.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
@@ -1003,7 +1012,7 @@ public class Chessboard : MonoBehaviour
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 0, 4);
+				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 0, 0, 4);
 				newKnight.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newKnight;
@@ -1011,7 +1020,7 @@ public class Chessboard : MonoBehaviour
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 1, 5);
+				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 1, 1, 5);
 				newKnight.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newKnight;
@@ -1028,7 +1037,7 @@ public class Chessboard : MonoBehaviour
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 0, 6);
+				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 0, 0, 6);
 				newBishop.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newBishop;
@@ -1036,7 +1045,7 @@ public class Chessboard : MonoBehaviour
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 1, 7);
+				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 1, 1, 7);
 				newBishop.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newBishop;
@@ -1053,7 +1062,7 @@ public class Chessboard : MonoBehaviour
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 0, 2);
+				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 2);
 				newRook.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newRook;
@@ -1061,7 +1070,7 @@ public class Chessboard : MonoBehaviour
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 1, 3);
+				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 1, 1, 3);
 				newRook.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newRook;
@@ -1095,7 +1104,7 @@ public class Chessboard : MonoBehaviour
 		{
 			return false;
 		}
-		
+
 		Vector2Int previousPos = new Vector2Int(cp.currentX, cp.currentY);
 
 		// Is the tile occupied
