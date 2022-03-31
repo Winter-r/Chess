@@ -1,4 +1,4 @@
-# Chess
+<!-- # Chess
 Online Multiplayer Chess Game
 
 # How To: Multiplayer
@@ -19,4 +19,4 @@ Note: I completely understand the worry of using sharing your IP, you might be s
 
 
 # Credits
-* Chess Set Model: "Low Poly Chess Set" by Andrew McClain Hanold on the [Unity Asset Store](https://assetstore.unity.com/packages/3d/props/free-low-poly-chess-set-116856#)
+* Chess Set Model: "Low Poly Chess Set" by Andrew McClain Hanold on the [Unity Asset Store](https://assetstore.unity.com/packages/3d/props/free-low-poly-chess-set-116856#) -->
