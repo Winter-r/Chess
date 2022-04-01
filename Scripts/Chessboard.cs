@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-using Photon.Pun;
 
 public enum SpecialMove
 {
@@ -57,12 +56,6 @@ public class Chessboard : MonoBehaviour
 
 	#endregion
 
-	#region Multi Logic
-
-	PhotonView view;
-
-	#endregion
-
 	#endregion
 
 	#region Start & Update
@@ -71,7 +64,6 @@ public class Chessboard : MonoBehaviour
 	{
 		isWhiteTurn = true;
 
-		view = GetComponent<PhotonView>();
 		GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
 		SpawnAllPieces();
 		PositionAllPieces();

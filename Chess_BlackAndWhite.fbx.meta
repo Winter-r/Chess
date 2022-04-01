@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Black_Pieces_Texture
-    second: {fileID: 2100000, guid: eca81b32dfffa2c4eb470b747fd7f92b, type: 2}
+    second: {fileID: 2100000, guid: 0a9e26c95cba05746a196f05d38eee02, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Board_Texture
-    second: {fileID: 2100000, guid: 599de46e5b19dba4ab7617d72fa8f6f9, type: 2}
+    second: {fileID: 2100000, guid: 2c6cc645d71755b4b8aef993696038dd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: White_Pieces_Texture
-    second: {fileID: 2100000, guid: 86956cd10e684734f8a0196273589585, type: 2}
+    second: {fileID: 2100000, guid: 8c23c2dfdf9a6e148a86b9e8a09d42a3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

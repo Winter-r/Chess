@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49247277, g: 0.531915, b: 0.6046326, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,7 +259,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Black Team Wins
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -664,7 +664,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785349, y: 1}
+    m_SensorSize: {x: 1.3931624, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1069,7 +1069,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Draw
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1204,8 +1204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LOCAL GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
-  m_sharedMaterial: {fileID: -2678414021263063980, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
+  m_sharedMaterial: {fileID: 4511899605027425748, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1341,7 +1341,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1571,7 +1571,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: ROOK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1706,8 +1706,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: CHESS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
-  m_sharedMaterial: {fileID: -2678414021263063980, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
+  m_sharedMaterial: {fileID: 4511899605027425748, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1846,7 +1846,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1062407561
 GameObject:
@@ -1908,7 +1908,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: REMATCH
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2205,7 +2205,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: BISHOP
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2715,7 +2715,7 @@ Transform:
   - {fileID: 1379699368}
   - {fileID: 1923400601}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1348252883
 GameObject:
@@ -2913,7 +2913,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785349, y: 1}
+    m_SensorSize: {x: 1.3931624, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2982,8 +2982,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ONLINE GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
-  m_sharedMaterial: {fileID: -2678414021263063980, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
+  m_sharedMaterial: {fileID: 4511899605027425748, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3117,7 +3117,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Opponent wants a rematch!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3424,7 +3424,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: MENU
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3856,12 +3856,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1862168328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69eca2fd02af0a14fb4938ddb65fbd74, type: 3}
+  m_Script: {fileID: 11500000, guid: e3c7b73388cfd6b4486fe933daaf2775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   menuAnimator: {fileID: 1862168334}
   chessBoard: {fileID: 33947027111801830}
-  startButton: {fileID: 0}
   cameraAngles:
   - {fileID: 1878513164}
   - {fileID: 437476951}
@@ -3877,7 +3876,7 @@ Animator:
   m_GameObject: {fileID: 1862168328}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 24354bb1a9a93384fa7fa89ec2c25d4a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 75fb7e3c9565ec142a3e93007f3adfaf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4042,7 +4041,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: KNIGHT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4179,7 +4178,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785349, y: 1}
+    m_SensorSize: {x: 1.3931624, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4250,7 +4249,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7785349, y: 1}
+    m_SensorSize: {x: 1.3931624, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4319,7 +4318,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: White Team Wins
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4454,7 +4453,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Opponent has left
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4676,7 +4675,7 @@ GameObject:
   - component: {fileID: 23738018651274615}
   - component: {fileID: 33947027111801830}
   m_Layer: 0
-  m_Name: Chess Board
+  m_Name: ChessBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4717,7 +4716,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 599de46e5b19dba4ab7617d72fa8f6f9, type: 2}
+  - {fileID: 2100000, guid: 2c6cc645d71755b4b8aef993696038dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4746,7 +4745,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857997291254441}
-  m_Mesh: {fileID: 8616276468678558677, guid: 293afca3427316643bc0606b900afde3, type: 3}
+  m_Mesh: {fileID: 8616276468678558677, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
 --- !u!114 &33947027111801830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4756,41 +4755,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1857997291254441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b20f944220d8f443ab3cfb99a128445, type: 3}
+  m_Script: {fileID: 11500000, guid: ceeea7b0f5f28ef47a6f344ec612fac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMaterial: {fileID: 2100000, guid: 5776e1657e71c2749979d1f5533da976, type: 2}
+  tileMaterial: {fileID: 2100000, guid: 524f10f9ef30c1044a82bc12a47fbf12, type: 2}
   tileSize: 1
-  yOffset: 0.14
+  yOffset: 0.2
   boardCenter: {x: 0, y: 0, z: 0}
-  deathSize: 0.55
-  deathSpacing: 0.55
+  deathSize: 0.3
+  deathSpacing: 0.3
   dragOffset: 1.25
   victoryScreen: {fileID: 1578876466}
   promotionScreen: {fileID: 538210959}
   rematchIndicator: {fileID: 1463595333}
   rematchButton: {fileID: 575189830}
   prefabs:
-  - {fileID: 4852894807656341012, guid: b91e6cf0440a73647aa86d11202f0325, type: 3}
-  - {fileID: 4037930532721772457, guid: 7b63e2563ca3d1f4686670e1cb85b18c, type: 3}
-  - {fileID: 7885850058234392705, guid: c6604cf52fec16145a92690d30ca6b77, type: 3}
-  - {fileID: 761917747918747666, guid: 37ba58810e522ce42ad6fd261682a768, type: 3}
-  - {fileID: 3283853289696098851, guid: 75e07efd4838c5b4680be11121e4a64a, type: 3}
-  - {fileID: 4722705683671508749, guid: 9cbf04dd2a9116e4ebc6cb6299321d4c, type: 3}
+  - {fileID: 4852894807656341012, guid: f2fcf98dcb634a84a9bbff25f0e9e0be, type: 3}
+  - {fileID: 4037930532721772457, guid: b3178e433d5f58f4694949a4f6417e12, type: 3}
+  - {fileID: 7885850058234392705, guid: 7982f6ead3d9f5e40b1b6b949abfc957, type: 3}
+  - {fileID: 761917747918747666, guid: ab537f0bb49a20648b1d28c240eb51cf, type: 3}
+  - {fileID: 3283853289696098851, guid: 65d64d1900b8bdc48bc24d903da488da, type: 3}
+  - {fileID: 4722705683671508749, guid: a42c528e43f4f58478b7ef5ea8bca022, type: 3}
   team: 0000000001000000
   pieceMaterials:
-  - {fileID: 2100000, guid: 86956cd10e684734f8a0196273589585, type: 2}
-  - {fileID: 2100000, guid: eca81b32dfffa2c4eb470b747fd7f92b, type: 2}
+  - {fileID: 2100000, guid: 8c23c2dfdf9a6e148a86b9e8a09d42a3, type: 2}
+  - {fileID: 2100000, guid: 0a9e26c95cba05746a196f05d38eee02, type: 2}
   meshes:
-  - {fileID: -2094006254417880301, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 5293309705621980511, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 4335476626450284616, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: -9001217997621695343, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 553887078029834311, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: -6855788601247004747, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: -7718649920641929877, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: -8437835456587648137, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 4833398440642509384, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 2539017592064572964, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: -3931210645220963319, guid: 293afca3427316643bc0606b900afde3, type: 3}
-  - {fileID: 6732966637993530517, guid: 293afca3427316643bc0606b900afde3, type: 3}
+  - {fileID: -2094006254417880301, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 5293309705621980511, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 4335476626450284616, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: -9001217997621695343, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 553887078029834311, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: -6855788601247004747, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: -7718649920641929877, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: -8437835456587648137, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 4833398440642509384, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 2539017592064572964, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: -3931210645220963319, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}
+  - {fileID: 2539017592064572964, guid: bfdd90fcf7a0bc14bbd7bee03e18931d, type: 3}

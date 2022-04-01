@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5469240448629761025}
   - component: {fileID: 2625013574521793839}
   - component: {fileID: 4906121039890349857}
+  - component: {fileID: 2490100215708644236}
   m_Layer: 5
   m_Name: RoomItem
   m_TagString: Untagged
@@ -122,7 +123,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5469240448629761025}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4906121039890349857}
+        m_TargetAssemblyTypeName: RoomItem, Assembly-CSharp
+        m_MethodName: OnClickItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4906121039890349857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,10 +145,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 5339985647761878605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6932ec50d1712c14392f7c3ba9ab264f, type: 3}
+  m_Script: {fileID: 11500000, guid: 292d798c34acec34eb6083abb0359d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: {fileID: 2542158204405870276}
+  manager: {fileID: 0}
+--- !u!114 &2490100215708644236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5339985647761878605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6467991401251764924
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,8 +240,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Room Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
-  m_sharedMaterial: {fileID: -2678414021263063980, guid: ece9181e40adf50458c8f81cc3303029, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c14af16088748884cb7a46da429a6309, type: 2}
+  m_sharedMaterial: {fileID: 4511899605027425748, guid: c14af16088748884cb7a46da429a6309, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

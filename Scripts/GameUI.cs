@@ -26,7 +26,6 @@ public class GameUI : MonoBehaviour
 
 	[SerializeField] public Animator menuAnimator;
 	[SerializeField] private Chessboard chessBoard;
-	[SerializeField] private Button startButton;
 	[SerializeField] private GameObject[] cameraAngles;
 
 	public Action<bool> SetLocalGame;
@@ -58,11 +57,5 @@ public class GameUI : MonoBehaviour
 	public void OnOnlineGameButton()
 	{
 		SceneManager.LoadScene("Init");
-	}
-
-	public void OnOnlineStartButton()
-	{
-		startButton.gameObject.SetActive(false);
-		ChangeCamera(CameraAngle.whiteTeam);
 	}
 }
