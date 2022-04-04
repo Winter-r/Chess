@@ -1,12 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
 	[SerializeField] private TMP_InputField usernameInput;
 	[SerializeField] private TMP_Text buttonText;
+	[SerializeField] private SceneTransition sceneTransition;
 
 	public void OnClickConnect()
 	{
@@ -21,6 +21,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
 	public override void OnConnectedToMaster()
 	{
-		SceneManager.LoadScene("Lobby");
+		sceneTransition.LoadNextScene("Lobby");
 	}
 }

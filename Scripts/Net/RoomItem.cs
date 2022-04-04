@@ -6,7 +6,7 @@ public class RoomItem : MonoBehaviour
 	[SerializeField] private TMP_Text roomName;
 	[SerializeField] private LobbyManager manager;
 	
-	private void Awake()
+	private void Start()
 	{
 		manager = FindObjectOfType<LobbyManager>();
 	}

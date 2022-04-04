@@ -52,8 +52,9 @@ public class ChessboardOnline : MonoBehaviour
 	#endregion
 
 	#region Multi Logic
-
-	PhotonView view;
+	
+	[Header("Multiplayer Logic")]
+	PlayerItem playerItem;
 
 	#endregion
 
@@ -65,7 +66,6 @@ public class ChessboardOnline : MonoBehaviour
 	{
 		isWhiteTurn = true;
 
-		view = GetComponent<PhotonView>();
 		GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
 		SpawnAllPieces();
 		PositionAllPieces();
@@ -74,11 +74,12 @@ public class ChessboardOnline : MonoBehaviour
 		{
 			if (player.Value == PhotonNetwork.LocalPlayer)
 			{
-				if ((int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"] == 0)
+				if ((int)playerItem.playerProperties["playerAvatar"] == 0)
 				{
 					ApplyLocalChanges(0);
 				}
-				else if ((int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"] == 1)
+				
+				if ((int)playerItem.playerProperties["playerAvatar"] == 1)
 				{
 					ApplyLocalChanges(1);
 				}

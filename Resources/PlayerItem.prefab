@@ -304,7 +304,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 150, y: -210.75}
-  m_SizeDelta: {x: 170, y: 270}
+  m_SizeDelta: {x: 166.11333, y: 281.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5315496531916316500
 CanvasRenderer:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8e5c2b924a6a45429e55c41c5cc771c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec422b79e1e6476449fcde780298cf4c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -576,5 +576,5 @@ MonoBehaviour:
   rightArrow: {fileID: 5315496532051534943}
   playerAvatar: {fileID: 5315496531916316501}
   avatars:
-  - {fileID: 21300000, guid: e8e5c2b924a6a45429e55c41c5cc771c, type: 3}
-  - {fileID: 21300000, guid: b3c1fbe5b8833404699febfc5c9d7e12, type: 3}
+  - {fileID: 21300000, guid: ec422b79e1e6476449fcde780298cf4c, type: 3}
+  - {fileID: 21300000, guid: 166ae3a1f906d5844b32ebf781499db9, type: 3}

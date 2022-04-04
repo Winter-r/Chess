@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public enum CameraAngle
 {
@@ -24,9 +22,10 @@ public class GameUI : MonoBehaviour
 
 	#endregion
 
-	[SerializeField] public Animator menuAnimator;
+	[SerializeField] private Animator menuAnimator;
 	[SerializeField] private Chessboard chessBoard;
 	[SerializeField] private GameObject[] cameraAngles;
+	[SerializeField] private SceneTransition sceneTransition;
 
 	public Action<bool> SetLocalGame;
 
@@ -56,6 +55,6 @@ public class GameUI : MonoBehaviour
 
 	public void OnOnlineGameButton()
 	{
-		SceneManager.LoadScene("Init");
+		sceneTransition.LoadNextScene("Init");
 	}
 }

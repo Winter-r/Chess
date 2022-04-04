@@ -22,33 +22,28 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 	[SerializeField] private Button playButton;
 	List<RoomItem> roomItemsList = new List<RoomItem>();
 
+	[Header("Scene Management")]
+	[SerializeField] private SceneTransition sceneTransition;
+	
 	[Header("Bug Fixes")]
 	[SerializeField] private float timeBetweenUpdates = 1.5f;
 	float nextUpdateTime;
 
-	private void Awake()
+	private void Start()
 	{
 		PhotonNetwork.JoinLobby();
 	}
 
 	private void Update()
 	{
-		if (PhotonNetwork.CurrentRoom.PlayerCount >= 1)
+
+		if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
 		{
-			if (PhotonNetwork.IsMasterClient)
-			{
-				playButton.gameObject.SetActive(true);
-				playButton.interactable = true;
-			}
-			else
-			{
-				playButton.gameObject.SetActive(false);
-				playButton.interactable = false;
-			}
+			playButton.gameObject.SetActive(true);
 		}
 		else
 		{
-			playButton.interactable = false;
+			playButton.gameObject.SetActive(false);
 		}
 	}
 
@@ -158,9 +153,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 	{
 		UpdatePlayerList();
 	}
-	
+
 	public void OnClickPlayButton()
 	{
+		sceneTransition.LoadNextScene("OnlineChess");
 		PhotonNetwork.LoadLevel("OnlineChess");
 	}
 }
