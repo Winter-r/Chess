@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class ChessboardOnline : MonoBehaviour
+public class ChessboardOnline : MonoBehaviourPunCallbacks
 {
 	#region Variables
 
@@ -1267,5 +1267,10 @@ public class ChessboardOnline : MonoBehaviour
 		isWhiteTurn = true;
 	}
 
+	public override void OnDisconnected(DisconnectCause cause)
+	{
+		StreamChatBehaviour.instance.Disconnect();
+	}
+	
 	#endregion
 }

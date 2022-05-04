@@ -14,11 +14,20 @@ public class StreamChatBehaviour : MonoBehaviour
 	public static StreamChatBehaviour instance;
 	
 	IStreamChatClient client;
+	ChannelState channelState;
+	
+	public Message messagePrefab;
+	Transform content;
 
 	private void Awake()
 	{
 		instance = this;
 		DontDestroyOnLoad(this);
+	}
+	
+	public void SetContentObject()
+	{
+		content = GameObject.FindGameObjectWithTag("content").transform;
 	}
 	
 	public void GetOrCreateClient(string userName)
@@ -28,6 +37,7 @@ public class StreamChatBehaviour : MonoBehaviour
 		client = StreamChatClient.CreateDefaultClient(credentials);
 		client.Connect();
 		client.Connected += OnClientConnected;
+		client.MessageReceived += OnMessageRecieved;
 	}
 	
 	void OnClientConnected()
@@ -41,5 +51,52 @@ public class StreamChatBehaviour : MonoBehaviour
 		{
 			client.Update(Time.deltaTime);
 		}
+	}
+	
+	public void GetOrCreateChannel(string roomName)
+	{
+		GetOrCreateChannelAsync(roomName).LogIfFailed();
+	}
+	
+	async Task GetOrCreateChannelAsync(string roomName)
+	{
+		ChannelGetOrCreateRequest request = new ChannelGetOrCreateRequest
+		{
+			State = true,
+			Watch = true
+		};
+		
+		channelState = await client.ChannelApi.GetOrCreateChannelAsync("livestream", roomName, request);
+	}
+	
+	public void SendChat(string message)
+	{
+		SendChatAsync(message, channelState.Channel.Type, channelState.Channel.Id).LogIfFailed();
+	}
+	
+	async Task SendChatAsync(string message, string channelType, string channelId)
+	{
+		SendMessageRequest request = new SendMessageRequest
+		{
+			Message = new MessageRequest
+			{
+				Text = message
+			}
+		};
+		
+		await client.MessageApi.SendNewMessageAsync(channelType, channelId, request);
+	}
+	
+	void OnMessageRecieved(EventMessageNew newMessage)
+	{
+		Message newMessageSpawned = Instantiate(messagePrefab, content);
+		newMessageSpawned.messageText.text = newMessage.Message.Text;
+		newMessageSpawned.usernameText.text = newMessage.User.Id;
+	}
+	
+	public void Disconnect()
+	{
+		client.MessageReceived -= OnMessageRecieved;
+		client.Dispose();
 	}
 }

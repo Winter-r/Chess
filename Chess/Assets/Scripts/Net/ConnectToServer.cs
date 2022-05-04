@@ -21,6 +21,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
 	public override void OnConnectedToMaster()
 	{
+		StreamChatBehaviour.instance.GetOrCreateClient(usernameInput.text);
 		sceneTransition.LoadNextScene("Lobby");
 	}
 }
