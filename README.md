@@ -20,3 +20,8 @@ Note: I completely understand the worry of using sharing your IP, you might be s
 
 # Credits
 * Chess Set Model: "Low Poly Chess Set" by Andrew McClain Hanold on the [Unity Asset Store](https://assetstore.unity.com/packages/3d/props/free-low-poly-chess-set-116856#) -->
+# Chess
+Online Multiplayer Chess Game
+
+This was my attempt at working with NetCode (Networking Code), which didn't go as smoothly as I hoped 😅, but I did learn loads out of it, and it did workout in the end (sort of). This project was in collaboration with Saif Hassan Salhab and is still being worked on.
+
