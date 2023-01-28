@@ -33,12 +33,12 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 
 	#region Logic
 
-	private BasePiece[,] chessPieces;
-	private BasePiece currentlyDragging;
+	private ChessPiece[,] chessPieces;
+	private ChessPiece currentlyDragging;
 	private List<Vector2Int> availableMoves = new List<Vector2Int>();
 	private List<Vector2Int[]> moveList = new List<Vector2Int[]>();
-	private List<BasePiece> deadWhites = new List<BasePiece>();
-	private List<BasePiece> deadBlacks = new List<BasePiece>();
+	private List<ChessPiece> deadWhites = new List<ChessPiece>();
+	private List<ChessPiece> deadBlacks = new List<ChessPiece>();
 	private const int TILE_COUNT_X = 8;
 	private const int TILE_COUNT_Y = 8;
 	private GameObject[,] tiles;
@@ -90,12 +90,12 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 	{
 		if (team == 0)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
 		}
 		
 		if (team == 1)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
 		}
 		
 	}
@@ -164,7 +164,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 				{
 					currentlyDragging.SetPosition(GetTileCenter(previousPos.x, previousPos.y));
 
-					BasePiece cp = chessPieces[hitPos.x, hitPos.y];
+					ChessPiece cp = chessPieces[hitPos.x, hitPos.y];
 
 					#region Notation
 
@@ -543,7 +543,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 
 	private void SpawnAllPieces()
 	{
-		chessPieces = new BasePiece[TILE_COUNT_X, TILE_COUNT_Y];
+		chessPieces = new ChessPiece[TILE_COUNT_X, TILE_COUNT_Y];
 
 		// White Team
 		chessPieces[0, 0] = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 2);
@@ -574,9 +574,9 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		}
 	}
 
-	private BasePiece SpawnSinglePiece(ChessPieceType type, int team, int pieceMaterial, int mesh)
+	private ChessPiece SpawnSinglePiece(ChessPieceType type, int team, int pieceMaterial, int mesh)
 	{
-		BasePiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<BasePiece>();
+		ChessPiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPiece>();
 
 		cp.type = type;
 		cp.team = team;
@@ -653,7 +653,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 
 	private void PreventCheck()
 	{
-		BasePiece targetKing = null;
+		ChessPiece targetKing = null;
 		for (int x = 0; x < TILE_COUNT_X; x++)
 		{
 			for (int y = 0; y < TILE_COUNT_Y; y++)
@@ -675,7 +675,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		SimulateMoveForSinglePiece(currentlyDragging, ref availableMoves, targetKing);
 	}
 
-	private void SimulateMoveForSinglePiece(BasePiece cp, ref List<Vector2Int> moves, BasePiece targetKing)
+	private void SimulateMoveForSinglePiece(ChessPiece cp, ref List<Vector2Int> moves, ChessPiece targetKing)
 	{
 		// Save current values
 		int actualX = cp.currentX;
@@ -697,8 +697,8 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			}
 
 			// Copy [,] but not the ref
-			BasePiece[,] simulation = new BasePiece[TILE_COUNT_X, TILE_COUNT_Y];
-			List<BasePiece> simAttackingPieces = new List<BasePiece>();
+			ChessPiece[,] simulation = new ChessPiece[TILE_COUNT_X, TILE_COUNT_Y];
+			List<ChessPiece> simAttackingPieces = new List<ChessPiece>();
 
 			for (int x = 0; x < TILE_COUNT_X; x++)
 			{
@@ -763,10 +763,10 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		var lastMove = moveList[moveList.Count - 1];
 		int targetTeam = (chessPieces[lastMove[1].x, lastMove[1].y].team == 0) ? 1 : 0;
 
-		List<BasePiece> attackingPiece = new List<BasePiece>();
-		List<BasePiece> defendingPiece = new List<BasePiece>();
+		List<ChessPiece> attackingPiece = new List<ChessPiece>();
+		List<ChessPiece> defendingPiece = new List<ChessPiece>();
 
-		BasePiece targetKing = null;
+		ChessPiece targetKing = null;
 		for (int x = 0; x < TILE_COUNT_X; x++)
 		{
 			for (int y = 0; y < TILE_COUNT_Y; y++)
@@ -839,51 +839,51 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 	public void OnQueenButton()
 	{
 		Vector2Int[] lastMove = moveList[moveList.Count - 1];
-		BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+		ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
 		OnQueenPromotion(lastMove, targetPawn);
 
 		if (isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
 		}
 		else if (!isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
 		}
 	}
 
 	public void OnKnightButton()
 	{
 		Vector2Int[] lastMove = moveList[moveList.Count - 1];
-		BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+		ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
 		OnKnightPromotion(lastMove, targetPawn);
 
 		if (isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
 		}
 		else if (!isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
 		}
 	}
 
 	public void OnBishopButton()
 	{
 		Vector2Int[] lastMove = moveList[moveList.Count - 1];
-		BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+		ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
 		OnBishopPromotion(lastMove, targetPawn);
 
 		if (isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
 		}
 		else if (!isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
 		}
 
 	}
@@ -891,17 +891,17 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 	public void OnRookButton()
 	{
 		Vector2Int[] lastMove = moveList[moveList.Count - 1];
-		BasePiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
+		ChessPiece targetPawn = chessPieces[lastMove[1].x, lastMove[1].y];
 
 		OnRookPromotion(lastMove, targetPawn);
 
 		if (isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.whiteTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
 		}
 		else if (!isWhiteTurn)
 		{
-			GameUI.Instance.ChangeCamera(CameraAngle.blackTeam);
+			GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
 		}
 	}
 
@@ -914,9 +914,9 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		if (specialMove == SpecialMove.EnPassant)
 		{
 			var newMove = moveList[moveList.Count - 1];
-			BasePiece myPawn = chessPieces[newMove[1].x, newMove[1].y];
+			ChessPiece myPawn = chessPieces[newMove[1].x, newMove[1].y];
 			var targetPawnPosition = moveList[moveList.Count - 2];
-			BasePiece enemyPawn = chessPieces[targetPawnPosition[1].x, targetPawnPosition[1].y];
+			ChessPiece enemyPawn = chessPieces[targetPawnPosition[1].x, targetPawnPosition[1].y];
 
 			if (myPawn.currentX == enemyPawn.currentX)
 			{
@@ -965,14 +965,14 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			{
 				if (lastMove[1].y == 0) // White Team
 				{
-					BasePiece rook = chessPieces[0, 0];
+					ChessPiece rook = chessPieces[0, 0];
 					chessPieces[3, 0] = rook;
 					PositionSinglePiece(3, 0);
 					chessPieces[0, 0] = null;
 				}
 				else if (lastMove[1].y == 7) // Black Team
 				{
-					BasePiece rook = chessPieces[0, 7];
+					ChessPiece rook = chessPieces[0, 7];
 					chessPieces[3, 7] = rook;
 					PositionSinglePiece(3, 7);
 					chessPieces[0, 7] = null;
@@ -982,14 +982,14 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			{
 				if (lastMove[1].y == 0) // White Team
 				{
-					BasePiece rook = chessPieces[7, 0];
+					ChessPiece rook = chessPieces[7, 0];
 					chessPieces[5, 0] = rook;
 					PositionSinglePiece(5, 0);
 					chessPieces[7, 0] = null;
 				}
 				else if (lastMove[1].y == 7) // Black Team
 				{
-					BasePiece rook = chessPieces[7, 7];
+					ChessPiece rook = chessPieces[7, 7];
 					chessPieces[5, 7] = rook;
 					PositionSinglePiece(5, 7);
 					chessPieces[7, 7] = null;
@@ -1004,13 +1004,13 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		promotionScreen.SetActive(true);
 	}
 
-	private void OnQueenPromotion(Vector2Int[] lastMove, BasePiece targetPawn)
+	private void OnQueenPromotion(Vector2Int[] lastMove, ChessPiece targetPawn)
 	{
 		if (targetPawn.type == ChessPieceType.Pawn)
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 0, 0, 8);
+				ChessPiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 0, 0, 8);
 				newQueen.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
@@ -1018,7 +1018,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 1, 1, 9);
+				ChessPiece newQueen = SpawnSinglePiece(ChessPieceType.Queen, 1, 1, 9);
 				newQueen.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newQueen;
@@ -1029,13 +1029,13 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		promotionScreen.SetActive(false);
 	}
 
-	private void OnKnightPromotion(Vector2Int[] lastMove, BasePiece targetPawn)
+	private void OnKnightPromotion(Vector2Int[] lastMove, ChessPiece targetPawn)
 	{
 		if (targetPawn.type == ChessPieceType.Pawn)
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 0, 0, 4);
+				ChessPiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 0, 0, 4);
 				newKnight.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newKnight;
@@ -1043,7 +1043,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 1, 1, 5);
+				ChessPiece newKnight = SpawnSinglePiece(ChessPieceType.Knight, 1, 1, 5);
 				newKnight.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newKnight;
@@ -1054,13 +1054,13 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		promotionScreen.SetActive(false);
 	}
 
-	private void OnBishopPromotion(Vector2Int[] lastMove, BasePiece targetPawn)
+	private void OnBishopPromotion(Vector2Int[] lastMove, ChessPiece targetPawn)
 	{
 		if (targetPawn.type == ChessPieceType.Pawn)
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 0, 0, 6);
+				ChessPiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 0, 0, 6);
 				newBishop.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newBishop;
@@ -1068,7 +1068,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 1, 1, 7);
+				ChessPiece newBishop = SpawnSinglePiece(ChessPieceType.Bishop, 1, 1, 7);
 				newBishop.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newBishop;
@@ -1079,13 +1079,13 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		promotionScreen.SetActive(false);
 	}
 
-	private void OnRookPromotion(Vector2Int[] lastMove, BasePiece targetPawn)
+	private void OnRookPromotion(Vector2Int[] lastMove, ChessPiece targetPawn)
 	{
 		if (targetPawn.type == ChessPieceType.Pawn)
 		{
 			if (targetPawn.team == 0 && lastMove[1].y == 7)
 			{
-				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 2);
+				ChessPiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 0, 0, 2);
 				newRook.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newRook;
@@ -1093,7 +1093,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 			}
 			if (targetPawn.team == 1 && lastMove[1].y == 0)
 			{
-				BasePiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 1, 1, 3);
+				ChessPiece newRook = SpawnSinglePiece(ChessPieceType.Rook, 1, 1, 3);
 				newRook.transform.position = chessPieces[lastMove[1].x, lastMove[1].y].transform.position;
 				Destroy(chessPieces[lastMove[1].x, lastMove[1].y].gameObject);
 				chessPieces[lastMove[1].x, lastMove[1].y] = newRook;
@@ -1121,7 +1121,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		return false;
 	}
 
-	private bool MoveTo(BasePiece cp, int x, int y)
+	private bool MoveTo(ChessPiece cp, int x, int y)
 	{
 		if (!ContainsValidMove(ref availableMoves, new Vector2Int(x, y)))
 		{
@@ -1133,7 +1133,7 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 		// Is the tile occupied
 		if (chessPieces[x, y] != null)
 		{
-			BasePiece ocp = chessPieces[x, y];
+			ChessPiece ocp = chessPieces[x, y];
 
 			if (cp.team == ocp.team)
 			{
@@ -1269,7 +1269,6 @@ public class ChessboardOnline : MonoBehaviourPunCallbacks
 
 	public override void OnDisconnected(DisconnectCause cause)
 	{
-		StreamChatBehaviour.instance.Disconnect();
 	}
 	
 	#endregion

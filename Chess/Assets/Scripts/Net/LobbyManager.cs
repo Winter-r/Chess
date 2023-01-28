@@ -57,7 +57,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 	public override void OnJoinedRoom()
 	{
-		StreamChatBehaviour.instance.GetOrCreateChannel(PhotonNetwork.CurrentRoom.Name);
 		lobbyPanel.SetActive(false);
 		roomPanel.SetActive(true);
 		roomName.text = "Room Name: " + PhotonNetwork.CurrentRoom.Name;

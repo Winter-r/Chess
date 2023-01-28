@@ -4,8 +4,8 @@ using System;
 public enum CameraAngle
 {
 	menu = 0,
-	whiteTeam = 1,
-	blackTeam = 2,
+	lightTeam = 1,
+	darkTeam = 2,
 	local = 3
 }
 
@@ -26,6 +26,7 @@ public class GameUI : MonoBehaviour
 	[SerializeField] private Chessboard chessBoard;
 	[SerializeField] private GameObject[] cameraAngles;
 	[SerializeField] private SceneTransition sceneTransition;
+	[SerializeField] private GameObject menu;
 
 	public Action<bool> SetLocalGame;
 
@@ -45,6 +46,7 @@ public class GameUI : MonoBehaviour
 	{
 		menuAnimator.SetTrigger("InGameMenu");
 		ChangeCamera(CameraAngle.local);
+		menu.SetActive(false);
 	}
 
 	public void OnLeaveGame()
