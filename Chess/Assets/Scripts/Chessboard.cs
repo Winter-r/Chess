@@ -522,14 +522,14 @@ public class Chessboard : MonoBehaviour
 
         OnQueenPromotion(lastMove, targetPawn);
 
-        if (isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
-        }
-        else if (!isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
-        }
+        // if (isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
+        // }
+        // else if (!isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
+        // }
     }
 
     public void OnKnightButton()
@@ -539,14 +539,14 @@ public class Chessboard : MonoBehaviour
 
         OnKnightPromotion(lastMove, targetPawn);
 
-        if (isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
-        }
-        else if (!isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
-        }
+        // if (isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
+        // }
+        // else if (!isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
+        // }
     }
 
     public void OnBishopButton()
@@ -556,14 +556,14 @@ public class Chessboard : MonoBehaviour
 
         OnBishopPromotion(lastMove, targetPawn);
 
-        if (isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
-        }
-        else if (!isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
-        }
+        // if (isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
+        // }
+        // else if (!isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
+        // }
 
     }
 
@@ -574,14 +574,14 @@ public class Chessboard : MonoBehaviour
 
         OnRookPromotion(lastMove, targetPawn);
 
-        if (isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
-        }
-        else if (!isLightTurn)
-        {
-            GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
-        }
+        // if (isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.lightTeam);
+        // }
+        // else if (!isLightTurn)
+        // {
+        //     GameUI.Instance.ChangeCamera(CameraAngle.darkTeam);
+        // }
     }
 
     #endregion

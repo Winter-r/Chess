@@ -53,6 +53,7 @@ public class GameUI : MonoBehaviour
 	{
 		ChangeCamera(CameraAngle.menu);
 		menuAnimator.SetTrigger("StartMenu");
+		menu.SetActive(true);
 	}
 
 	public void OnOnlineGameButton()
