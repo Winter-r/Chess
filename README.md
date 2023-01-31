@@ -22,3 +22,5 @@ This was my attempt at working with NetCode (Networking Code), which didn't go a
 <h3>Game Screen<h3>
 
 ![Lobby](https://github.com/Winter-r/Chess/blob/main/Images/image%20(4).png?raw=true)
+
+# [Plan](https://github.com/Winter-r/Chess/blob/main/Plan.md)
