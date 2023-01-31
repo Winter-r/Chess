@@ -1,9 +1,6 @@
 # Chess
-Online Multiplayer Chess Game
-
-# [Plan](https://github.com/Winter-r/Chess/blob/main/Plan.md)
-
-This was my attempt at working with NetCode (Networking Code), which didn't go as smoothly as I hoped 😅, but I did learn loads out of it, and it did workout in the end (sort of). This project was in collaboration with Saif Hassan Salhab and is still being worked on.
+Online Multiplayer Chess Game  
+Check the plan [here](https://github.com/Winter-r/Chess/blob/main/Plan.md)
 
 <h3>Main Menu<h3>
 
