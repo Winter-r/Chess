@@ -1,19 +1,10 @@
 using UnityEngine;
-using System;
 
-public enum CameraAngle
-{
-	menu = 0,
-	lightTeam = 1,
-	darkTeam = 2,
-	local = 3
-}
-
-public class GameUI : MonoBehaviour
+public class PickTeam : MonoBehaviour
 {
 	#region Singleton Implementation
 
-	public static GameUI Instance { set; get; }
+	public static PickTeam Instance { set; get; }
 
 	private void Awake()
 	{
@@ -27,9 +18,7 @@ public class GameUI : MonoBehaviour
 	[SerializeField] private GameObject[] cameraAngles;
 	[SerializeField] private SceneTransition sceneTransition;
 	[SerializeField] private GameObject menu;
-
-	public Action<bool> SetLocalGame;
-
+	
 	// Cameras
 	public void ChangeCamera(CameraAngle index)
 	{
@@ -40,24 +29,29 @@ public class GameUI : MonoBehaviour
 
 		cameraAngles[(int)index].SetActive(true);
 	}
-
+	
 	// Buttons
-	public void OnLocalGameButton()
+	public void OnWhiteTeamButton()
 	{
 		menuAnimator.SetTrigger("InGameMenu");
-		ChangeCamera(CameraAngle.local);
+		ChangeCamera(CameraAngle.lightTeam);
 		menu.SetActive(false);
 	}
-
-	public void OnLeaveGame()
+	
+	public void OnBlackTeamButton()
 	{
-		ChangeCamera(CameraAngle.menu);
-		menuAnimator.SetTrigger("StartMenu");
-		menu.SetActive(true);
+		menuAnimator.SetTrigger("InGameMenu");
+		ChangeCamera(CameraAngle.darkTeam);
+		menu.SetActive(false);
 	}
-
-	public void OnOnlineGameButton()
+	
+	public void OnRandomTeamButton()
 	{
-		sceneTransition.LoadNextScene("Init");
+		menuAnimator.SetTrigger("InGameMenu");
+		// randomly choose either light or dark team but not menu
+		CameraAngle randomCamera = (CameraAngle)Random.Range(1, 3);
+		ChangeCamera(randomCamera);
+		Debug.Log("Randomly picked camera: " + randomCamera);
+		menu.SetActive(false);
 	}
 }
