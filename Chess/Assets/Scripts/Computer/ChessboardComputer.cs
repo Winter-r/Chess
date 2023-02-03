@@ -94,22 +94,22 @@ public class ChessboardComputer : MonoBehaviour
 			// If holding mouse button
 			if (Input.GetMouseButtonDown(0))
 			{
-				if (chessPieces[hitPos.x, hitPos.y] != null)
+				// If human's turn
+				if (isLightTurn)
 				{
-					// Turns Mechanic
-					if ((chessPieces[hitPos.x, hitPos.y].team == 0 && isLightTurn) || (chessPieces[hitPos.x, hitPos.y].team == 1 && !isLightTurn))
+					// If clicked on a piece
+					if (chessPieces[hitPos.x, hitPos.y] && chessPieces[hitPos.x, hitPos.y].isLight)
 					{
 						currentlyDragging = chessPieces[hitPos.x, hitPos.y];
-
-						// Get available moves list and highlight tiles
-						availableMoves = currentlyDragging.GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
-
-						// Get special moves
-						specialMove = currentlyDragging.GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
-
-						PreventCheck();
-						HighlightTiles();
+						currentlyDragging.SetPosition(GetTileCenter(hitPos.x, hitPos.y) + Vector3.up * dragOffset);
+						availableMoves = currentlyDragging.GetAvailableMoves(chessPieces, moveList);
+						HighlightTiles(availableMoves);
 					}
+				}
+				// If computer's turn
+				else
+				{
+					ComputerMove();
 				}
 			}
 
@@ -120,12 +120,13 @@ public class ChessboardComputer : MonoBehaviour
 
 				bool validMove = MoveTo(currentlyDragging, hitPos.x, hitPos.y);
 
-				if (!validMove)
+				//if move isnt valid or move outside of board or clicked another piece
+				if (!validMove || hitPos.x < 0 || hitPos.x >= TILE_COUNT_X || hitPos.y < 0 || hitPos.y >= TILE_COUNT_Y)
 				{
+					ChessPiece piece = chessPieces[hitPos.x, hitPos.y];
 					currentlyDragging.SetPosition(GetTileCenter(previousPos.x, previousPos.y));
-
-					ChessPiece cp = chessPieces[hitPos.x, hitPos.y];
 				}
+
 				currentlyDragging = null;
 				RemoveHighlightTiles();
 			}
@@ -936,6 +937,39 @@ public class ChessboardComputer : MonoBehaviour
 		SpawnAllPieces();
 		PositionAllPieces();
 		isLightTurn = true;
+	}
+
+	#endregion
+
+	#region Computer Operations
+
+	private void ComputerMove()
+	{
+		// Find all available moves for the computer's pieces
+		List<Vector2Int[]> allAvailableMoves = new List<Vector2Int[]>();
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if (chessPieces[i, j] != null && chessPieces[i, j].team == 1)
+				{
+					List<Vector2Int> availableMoves = chessPieces[i, j].GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+					foreach (Vector2Int move in availableMoves)
+					{
+						allAvailableMoves.Add(new Vector2Int[] { new Vector2Int(i, j), move });
+					}
+				}
+			}
+		}
+		
+		// Choose a random move from all available moves
+		if (allAvailableMoves.Count > 0)
+		{
+			System.Random rnd = new System.Random();
+			int randomIndex = rnd.Next(allAvailableMoves.Count);
+			Vector2Int[] move = allAvailableMoves[randomIndex];
+			MoveTo(chessPieces[move[0].x, move[0].y], move[1].x, move[1].y);
+		}
 	}
 
 	#endregion

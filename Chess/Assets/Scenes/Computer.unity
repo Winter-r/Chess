@@ -476,7 +476,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnMenuButton
         m_Mode: 1
@@ -788,7 +788,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: GameReset
         m_Mode: 1
@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnRookButton
         m_Mode: 1
@@ -2132,7 +2132,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnBishopButton
         m_Mode: 1
@@ -2299,7 +2299,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnKnightButton
         m_Mode: 1
@@ -2861,7 +2861,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnKnightButton
         m_Mode: 1
@@ -3032,7 +3032,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnQueenButton
         m_Mode: 1
@@ -3300,7 +3300,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnBishopButton
         m_Mode: 1
@@ -3542,7 +3542,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnQueenButton
         m_Mode: 1
@@ -4583,7 +4583,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33947027117783845}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Chessboard, Assembly-CSharp
         m_MethodName: OnRookButton
         m_Mode: 1
@@ -4727,7 +4727,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1857997285177960}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceeea7b0f5f28ef47a6f344ec612fac0, type: 3}
+  m_Script: {fileID: 11500000, guid: b1beca744e2aab54aa84f627f0a442f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tileMaterial: {fileID: 2100000, guid: 524f10f9ef30c1044a82bc12a47fbf12, type: 2}

@@ -14,7 +14,7 @@ public class PickTeam : MonoBehaviour
 	#endregion
 
 	[SerializeField] private Animator menuAnimator;
-	[SerializeField] private Chessboard chessBoard;
+	[SerializeField] private ChessboardComputer chessBoard;
 	[SerializeField] private GameObject[] cameraAngles;
 	[SerializeField] private SceneTransition sceneTransition;
 	[SerializeField] private GameObject menu;
@@ -48,7 +48,7 @@ public class PickTeam : MonoBehaviour
 	public void OnRandomTeamButton()
 	{
 		menuAnimator.SetTrigger("InGameMenu");
-		// randomly choose either light or dark team but not menu
+		// Randomly pick a team but not menu
 		CameraAngle randomCamera = (CameraAngle)Random.Range(1, 3);
 		ChangeCamera(randomCamera);
 		Debug.Log("Randomly picked camera: " + randomCamera);
