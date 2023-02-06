@@ -1,8 +1,10 @@
+Currently Working On:
+ * VS Computer
+
 # Features To Add:
 * Clock
 * Notation and move recognition
 * Multiplayer
-* VS Computer
 * Draw
   * Stalemate
   * Threefold Repetition
